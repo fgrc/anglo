@@ -11,10 +11,10 @@ export class Filter implements IFilter{
    measure   : string;
    locations : string [];
    scenarios : string []; 
-   constructor(serieId, measure, locations, scenarios){
-    this.serieId   = serieId;
-    this.measure   = measure;
-    this.locations = locations;
-    this.scenarios = scenarios;
+   constructor(_serieId, _measure, _locations, _scenarios){
+    this.serieId   = _serieId;
+    this.measure   = _measure;
+    this.locations = _locations;
+    this.scenarios = _scenarios;
    }
 }

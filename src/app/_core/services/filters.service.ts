@@ -16,11 +16,10 @@ export class FiltersService {
   constructor(private store: Store<filtersState>) { }
 
   // Store
-  setMeasures  = (measures: string[]) => this.store.dispatch({ type: filtersStateActions.setMeasures, payload: measures });
+  setMeasures = (measures: string[]) => this.store.dispatch({ type: filtersStateActions.setMeasures, payload: measures });
 
   setTimeScale = (timeScale: string)  => this.store.dispatch({ type: filtersStateActions.setTimeScale, payload: timeScale });
 
-  setFilters   = (fitlers: any)       => this.store.dispatch({ type: filtersStateActions.setFilters, payload: fitlers });
-
-
+  setFilters = (fitlers: any) => this.store.dispatch({ type: filtersStateActions.setFilters, payload: fitlers });
+    
 }

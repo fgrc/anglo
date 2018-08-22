@@ -1,14 +1,16 @@
 import { Store, ActionReducer, Action } from '@ngrx/store';
 
 // Actions Types
-export const setCharts = 'setCharts';
-export const setSeries = 'setSeries';
-export const setLegend = 'setLegend'
+export const setCharts      = 'setCharts';
+export const setSeries      = 'setSeries';
+export const setLegend      = 'setLegend';
+export const setCrossfilters = 'setCrossfilter';
 
 export const seriesStateActions = {
     setCharts,
     setSeries,
-    setLegend
+    setLegend,
+    setCrossfilters
 }
 
 // Interface declaration
@@ -28,6 +30,14 @@ export interface seriesState {
         scenarios : {title: string, value: boolean} [] 
     } [];
     legend: string [];
+    crossfilters : {
+        title      : string;
+        serieId    : number;
+        data       : any;
+        dimensions : any;
+        groups     : any;
+    }[];
+
 }
 
 export const seriesInitialState: seriesState = {
@@ -38,7 +48,8 @@ export const seriesInitialState: seriesState = {
         data: []
     },
     series: [],
-    legend: []
+    legend: [],
+    crossfilters: []
 }
 
 // Reducer
@@ -50,6 +61,8 @@ export function seriesReducer(state: seriesState = seriesInitialState, action: A
             return Object.assign({}, state, { charts: action.payload }) as seriesState;
         case seriesStateActions.setLegend:
             return Object.assign({}, state, { legend: action.payload }) as seriesState;
+        case seriesStateActions.setCrossfilters:
+            return Object.assign({}, state, { crossfilters: action.payload }) as seriesState;
         default:
             return Object.assign({}, state)
     }

@@ -16,13 +16,13 @@ export class Serie implements ISerie{
     locations: [{title: '', value: false}];
     visible:   [{title: 'Only', value: false}, {title: 'Hide', value: false}];
     scenarios: [{title: 'Budget', value: false },{title: 'Real', value: true },{title: 'Predcción', value: false }];
-    constructor(measureInput: any, locationInput: any, scenariosInput: any)
+    constructor(_measure: any, _location: any, _scenarios: any)
     {
         this.title     = '';
         this.options   = [{title: 'Count', value:false},{title: 'AVG', value:true}, {title: 'Sum', value:false}];
-        this.measure   = measureInput;
-        this.locations = locationInput;
-        this.scenarios = scenariosInput;
+        this.measure   = _measure;
+        this.locations = _location;
+        this.scenarios = _scenarios;
         this.visible   = [{title: 'Only', value: false}, {title: 'Hide', value: false}];
     }
 }
@@ -40,10 +40,34 @@ export class Chart implements ICHart{
    title: string;
    legend: string [];
    data: {date: Date, value: number [] } [];
-   constructor(serieId, title, legend, data){
-    this.serieId = serieId;
-    this.title   = title;
-    this.legend  = legend;
-    this.data = data;
+   constructor(_serieId, _title, _legend, _data){
+    this.serieId = _serieId;
+    this.title   = _title;
+    this.legend  = _legend;
+    this.data    = _data;
    }
+}
+
+// Crossfilter Interface
+export interface ICrossfilter {
+    title      : string;
+    serieId    : number;
+    data       : any;
+    dimensions : any;
+    groups     : any;
+}
+
+export class Crossfilter implements ICrossfilter{
+    title      : string;
+    serieId    : number;
+    data       : any;
+    dimensions : any;
+    groups     : any;
+    constructor(_title: string, _serieId: number, _data: any){
+        this.title      = _title;
+        this.serieId    = _serieId;
+        this.data       = _data;
+        this.dimensions = [];
+        this.groups     = [];
+    }
 }

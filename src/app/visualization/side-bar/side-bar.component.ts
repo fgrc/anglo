@@ -9,6 +9,7 @@ import { SeriesService }                     from '../../_core/services/series.s
 import { FiltersService }                    from '../../_core/services/filters.service';
 // Interfaces
 import { ISerie, Serie }                     from '../../_core/interfaces/series';
+import { ICrossfilter, Crossfilter }         from '../../_core/interfaces/series';
 import { IFilter, Filter }                   from '../../_core/interfaces/filters';
 // Data
 import { data }                              from '../../_core/data'
@@ -37,6 +38,9 @@ export class SideBarComponent implements OnInit {
   private filters$;
   private filters;
 
+  private crossfilters$;
+  private crossfilters;
+
   private timeScales = ['Hour', 'Day', 'Week', 'Month', 'Year'];
   
 
@@ -51,18 +55,20 @@ export class SideBarComponent implements OnInit {
     this.filtersState$ = this.store.select('filters');
     this.seriesState$  = this.store.select('series');
     
-    this.measures$ = this.filtersState$.map(state => state.measures);
-    this.filters$  = this.filtersState$.map(state => state.filters);
-    this.series$   = this.seriesState$ .map(state => state.series);
-    this.charts$   = this.seriesState$ .map(state => state.charts);
+    this.measures$     = this.filtersState$.map(state => state.measures);
+    this.filters$      = this.filtersState$.map(state => state.filters);
+    this.series$       = this.seriesState$ .map(state => state.series);
+    this.charts$       = this.seriesState$ .map(state => state.charts);
+    this.crossfilters$ = this.seriesState$ .map(state => state.crossfilters);
 
     }
 
   ngOnInit() {
-    this.measures$.subscribe(measures => this.measures = measures);
-    this.filters$ .subscribe(filters  => this.filters  = filters);
-    this.series$  .subscribe(series   => this.series   = series);
-    this.charts$  .subscribe(charts   => this.charts   = charts);
+    this.measures$    .subscribe(measures     => this.measures     = measures);
+    this.filters$     .subscribe(filters      => this.filters      = filters);
+    this.series$      .subscribe(series       => this.series       = series);
+    this.charts$      .subscribe(charts       => this.charts       = charts);
+    this.crossfilters$.subscribe(crossfilters => this.crossfilters = crossfilters);
   }
 
   triggerDropDownTimeScale = (title: string) => {
@@ -103,13 +109,22 @@ export class SideBarComponent implements OnInit {
 
     // assign Scenerarios & Locations
     Object.assign(this.series[serieIndex], {title: title, locations: locations, scenarios: scenarios});
-        
-    // set Values
-    this.setSeries();
     
+    // Crossfilter
+    const crossfilterIndex = this.crossfilters.findIndex(d => d.serieId === serieIndex);
+    const crossfilter = this.seriesService.initCrossfilter(title, serieIndex);
+    if (crossfilterIndex === -1){
+      this.crossfilters.push(crossfilter);
+    }else{
+      this.crossfilters[crossfilterIndex] = crossfilter;
+    };
+    
+    // set Values
+    this.setSeries();    
     this.setFilter({serieId: serieIndex, measure: title, locations: [], scenarios: ['Real']});
     this.setFilters();
-    console.log(this.filters);
+    this.setCrossfilters();
+    console.log(this.crossfilters);
   }
   
   toggleScenariosCheckBox = (title: string, scenerarioIndex: number, serieIndex: number) => {
@@ -136,7 +151,8 @@ export class SideBarComponent implements OnInit {
     }    
   }
     
-  setFilters  = () => this.filtersService.setFilters(this.filters)
-  setSeries   = () => this.seriesService.setSeries(this.series);
+  setFilters      = () => this.filtersService.setFilters(this.filters)
+  setSeries       = () => this.seriesService.setSeries(this.series);
+  setCrossfilters = () => this.seriesService.setCrossfilters(this.crossfilters);
 
 }

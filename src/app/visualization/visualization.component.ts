@@ -48,6 +48,9 @@ export class VisualizationComponent implements OnInit {
   private series$;
   private series;
 
+  private crossfilters$;
+  private crossfilters;
+
   constructor(
     private filtersService: FiltersService,
     private store: Store<filtersState>
@@ -56,17 +59,20 @@ export class VisualizationComponent implements OnInit {
       this.filtersState$ = this.store.select('filters');
       this.seriesState$  = this.store.select('series');
   
-      this.filters$  = this.filtersState$.map(state => state.filters);
-      this.charts$   = this.seriesState$ .map(state => state.charts);
-      this.series$   = this.seriesState$ .map(state => state.series);
+      this.filters$        = this.filtersState$.map(state => state.filters);
+      this.charts$         = this.seriesState$ .map(state => state.charts);
+      this.series$         = this.seriesState$ .map(state => state.series);
+      this.crossfilters$   = this.seriesState$ .map(state => state.crossfilters);
      }
 
   ngOnInit() {
     const measures = data.filter((v, i, a) => a.findIndex(d => d.Name === v.Name) === i).map(d => d.Name);
     this.filtersService.setMeasures(measures);
-
-    this.filters$ .subscribe(filters  => {
-      this.filters  = filters
+    this.crossfilters$ .subscribe(crossfilters => this.crossfilters = crossfilters);
+    this.filters$      .subscribe(filters  => {
+      this.filters  = filters;
+      let _data = data;
+      
     });
     // this.series$  .subscribe(series   => this.series   = series);
     // this.charts$  .subscribe(charts   => this.charts   = charts);

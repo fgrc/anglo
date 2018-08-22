@@ -11,7 +11,7 @@ export const data = [
    "Name": "TPH",
    "Value": "88.64",
    "Location": "Flotation",
-   "Scenario": "Real"
+   "Scenario": "Real" 
  },
  {
    "Date": new Date("5/01/2017"),
