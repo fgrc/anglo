@@ -1,0 +1,74 @@
+.side-bar{
+   -webkit-box-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    background: linear-gradient(45deg, #f9f9f9, #ffffff);
+    box-shadow: 0 0 1px #012a77;
+    // box-shadow: 1px 1px 15px rgba(234, 234, 234, 0.7);
+    margin-left: 0px;
+    margin-bottom: 10px;
+    height: calc(100vh - 100px);
+    padding: 20px 10px;
+
+    .title{
+        font-size: larger;
+        font-weight: 600;
+        color: #022d77;
+        border-bottom: 1px solid rgba(2, 45, 119, 0.2);
+    }
+
+    .container-time-scale{
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(2, 45, 119, 0.2);
+        .sub-title{
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: small;
+                color: #022d77;
+        }
+    }
+
+    .toggle-btn{
+        display: flex;
+
+        .btn-size{
+            flex: 1;
+        }
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+    .card-options{
+        height: 20px;
+        margin-bottom: 10px;
+    
+    }
+    .serie-title{
+        color: #022d77;
+        float: left;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: small;
+    }
+
+    .serie-option{
+        float: right;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: small;
+    }
+}
+
+ .form-check-label{
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: x-small;
+        color: #353535;
+    }
+.form-check-input{
+    margin-top: 0rem;
+}
+    

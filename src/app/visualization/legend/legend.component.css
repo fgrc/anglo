@@ -1,0 +1,14 @@
+.list-group{
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: small;
+    color: #022d77;
+    box-shadow: 1px 1px 15px rgba(234, 234, 234, 0.7);
+}
+
+.legend-title{
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: small;
+    color: #022d77;
+}

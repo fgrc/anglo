@@ -1,1 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+  background-color: #DFE3EB;
+  margin: 0px;
+  height: 100vh;
+  color: rgba(1, 42, 119, 0.6);
+  font-family: 'Montserrat', sans-serif;
+}
+
+.axis {
+    font: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+}
+
+.container-visualization{
+    background-color: #f9f9f9;
+    background: linear-gradient(45deg, #f9f9f9, #ffffff);
+    box-shadow: 0 0 1px #012a77;
+    border-radius: 3px;
+
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.axis-title {
+    fill: none;
+    stroke: black;
+    stroke-width: 0.5px;
+}
+
+
+.axis--x path {
+    /*display: none;*/
+}
+
+.line {
+    fill: none;
+}
+
+

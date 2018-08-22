@@ -1,0 +1,44 @@
+.navbar-be{
+  background-color: white;
+}
+.navbar {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    a {
+      z-index: 1;
+      margin-left: 20px;
+      img {
+        width: 200px;
+      }
+    }
+    h3 {
+      flex: 1;
+      text-align: center;
+    }
+}
+
+div.title-wrapper {
+  // position: absolute;
+  // float: left;
+  width: 100vw;
+  text-align: center;
+  h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin: 10px 0 5px;
+    color: rgba(1, 42, 119, 1);
+  }
+  margin-bottom:5px;
+}
+
+.navbar-container {
+  box-shadow: 0 0 1px rgba(1, 42, 119, 1);
+}
+
+@media only screen and (max-width: 768px) {
+  div.title-wrapper {
+    position: static;
+  }
+} 
