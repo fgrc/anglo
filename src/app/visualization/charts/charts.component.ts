@@ -7,8 +7,10 @@ import { filtersState, filtersStateActions } from '../../_core/store/filters.act
 import { SeriesService }                     from '../../_core/services/series.service';
 import { FiltersService }                    from '../../_core/services/filters.service';
 
+import * as d3 from 'd3'
 
-import * as d3 from 'd3-selection';
+import { transition } from 'd3-transition';
+// import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
@@ -32,6 +34,7 @@ export class ChartsComponent implements OnInit {
     private width: number = 1100;
     private height: number = 800;
     private line: any = [];
+    private dots: any = [];
 
     private totalSeries: number;
 
@@ -134,7 +137,8 @@ export class ChartsComponent implements OnInit {
   }
 
  drawLine() {
-      
+      this.line = [];
+      this.dots = [];
       for(let i= 0; i < this.totalSeries; i ++){
         this.charts[i].colors = [];
         const subSeries = this.charts[0].data[0].values.length;
@@ -150,13 +154,50 @@ export class ChartsComponent implements OnInit {
           this.line.push(line);
           this.svg.append('path')
               .datum(this.charts[i].data)
-              .attr('class', 'line')
+              .attr('class', 'time line '+i+'-'+zz)
               .attr('stroke', color)
               .attr('stroke-width', '1.5px')
               .attr('transform', 'translate(0,' + (this.heightC - this.subHeightC * (i + 1 )  ) + ')')
-              .attr('d', line); 
+              .attr('d', line)
+              .style('opacity', 1)
+              .on('mouseover', (dd, ii, ee) => this.mouseOverLineIn(dd, i, ee))
+              .on('mouseout', (dd, ii, ee) => this.mouseOverLineOut(dd, ii, ee))
+
+          const dots = this.svg.selectAll('.dot-times' + this.charts[i].title + '-' +this.charts[i].legend[zz])
+              .data(this.charts[i].data)
+              .enter().append('circle')
+              .attr('class', '.dot-times' + this.charts[i].title + '-' +this.charts[i].legend[zz])
+              .style('stroke', 'white')
+              .attr('stroke-width', 1)
+              .attr('r',2)
+              .style('fill', 'black')
+              .attr('cx', (d: any) => this.x(new Date(d.date)))
+              .attr('cy', (d: any) => this.y[i](d.values[zz] ))
+              .attr('transform', 'translate(0,' + (this.heightC - this.subHeightC * (i + 1 )  ) + ')');
+          
+          this.dots.push(dots);           
         }
       }
+  }
+
+  mouseOverLineIn(d, i, e){
+    this.svg.selectAll('.time.line').each((dd, ii, ee) => {
+       if(i !== ii){
+         d3.selectAll(ee).style("opacity", 0.3);
+        }
+    })
+    d3.selectAll(e).style("opacity", 1);
+  }
+
+  mouseOverLineOut(d, i, e){
+    this.svg.selectAll('.time.line').each((dd, ii, ee) => {
+      d3.selectAll(ee).transition().duration(300).style("opacity", 1); 
+    })
+  }
+
+
+  drawTooltip(){
+
   }
 
 }
