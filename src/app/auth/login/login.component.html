@@ -1,6 +1,6 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <form *ngIf="!isLoading" #loginForm="ngForm" (submit)="onLogin(loginForm)">
+    <form *ngIf="!isLoading" #loginForm="ngForm">
         <mat-form-field>
             <input
               matInput placeholder="E-mail" type="email" name='email' ngModel #emailInput="ngModel" required email>
@@ -14,6 +14,6 @@
                 please enter a post content
             </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="accent" *ngIf="!isLoading" type='submit'>Login</button>
+        <button mat-raised-button color="accent" *ngIf="!isLoading" type='submit' [routerLink]="['/dashboard']" >Login</button>
     </form>
 </mat-card>

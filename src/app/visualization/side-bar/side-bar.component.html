@@ -76,11 +76,12 @@
             <span class="serie-title" style="width: 100%">
       Scenarios
     </span>
-            <br>
-            <div class="container-scenarios">
-                <div class="form-check" *ngFor="let scenario of serie.scenarios; index as scenerarioIndex;">
-                    <label class="form-check-label" (click)="toggleScenariosCheckBox(scenario.title,scenerarioIndex, serieIndex)">
-          <input type="checkbox" class="form-check-input" [attr.checked] = "scenario.value ? 'checked' : null">{{ scenario.title }}
+    <br>
+    <div class="container-scenarios">
+      <div class="form-check" *ngFor="let scenario of serie.scenarios; index as scenerarioIndex; trackBy: trackByFn">
+        <label class="form-check-label" >
+          <input type="checkbox" class="form-check-input" [attr.checked] = "scenario.value ? 'checked' : null" (click) = "toggleScenariosCheckBox(scenario.title,scenerarioIndex, serieIndex)">{{ scenario.title }}
+
         </label>
                 </div>
             </div>

@@ -5,7 +5,8 @@ import { AuthGuard } from "./auth/auth.guard";//protect routes with "canActivate
 import { VisualizationComponent } from './visualization/visualization.component'
 
 const routes:Routes = [
-  { path: '', component: VisualizationComponent },
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
+  { path: 'dashboard', component: VisualizationComponent },
   { path:'auth', loadChildren:"./auth/auth.module#AuthModule"} //this path is loaded lazly, it means that it will look the auth.module file for the childrens paths there!
 ]
 
