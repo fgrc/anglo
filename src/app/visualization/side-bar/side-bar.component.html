@@ -1,25 +1,25 @@
 <div class="side-bar">
-  <h4 class="title">{{ Title }}</h4><br>
-  <div class="container-time-scale">
-    <span class="sub-title">Time-Scale</span> <br>
+    <h4 class="title">{{ Title }}</h4><br>
+    <div class="container-time-scale">
+        <span class="sub-title">Time-Scale</span> <br>
 
-    <div class="btn-group btn-block" dropdown>
-      <button id="timeScaleDropDownButton" dropdownToggle type="button" class="btn btn-primary dropdown-toggle btn-sm btn-block" aria-controls="dropdown-basic">
+        <div class="btn-group btn-block" dropdown>
+            <button id="timeScaleDropDownButton" dropdownToggle type="button" class="btn btn-primary dropdown-toggle btn-sm btn-block" aria-controls="dropdown-basic">
     {{ timeScaleDropDownButtonTittle }} <span class="caret"></span>
   </button>
-      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-        <li *ngFor="let timeScale of timeScales; index as i; trackBy: trackByFn" role="menuitem">
-          <a class="dropdown-item" (click)="triggerDropDownTimeScale(timeScale)">{{ timeScale }}</a>
-        </li>
-      </ul>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <li *ngFor="let timeScale of timeScales; index as i;" role="menuitem">
+                    <a class="dropdown-item" (click)="triggerDropDownTimeScale(timeScale)">{{ timeScale }}</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 
-  <div class="btn btn-info btn-sm btn-block mb-2" (click) = "addNewSerie()" >
-    Add
-  </div>  
+    <div class="btn btn-info btn-sm btn-block mb-2" (click)="addNewSerie()">
+        Add
+    </div>
 
-  <!--<div class="toggle-btn">
+    <!--<div class="toggle-btn">
     <div class="btn btn-secondary btn-size btn-sm mr-1" (click)>
       Add
     </div>
@@ -29,61 +29,61 @@
   </div>-->
 
 
-  <div class="card mb-2" *ngFor="let serie of series; index as serieIndex; trackBy: trackByFn">
-    <div class="card-body">
-      <div class="card-options">
-        <span class="serie-title">{{ serie.title }}</span>
-        <span class="serie-option pl-1"> &times;</span>
-        <span class="mb-2 serie-option pl-1" *ngFor="let opt of serie.visible; index as i; trackBy: trackByFn" [ngClass]="{'text-muted': !opt.value }">
+    <div class="card mb-2" *ngFor="let serie of series; index as serieIndex;">
+        <div class="card-body">
+            <div class="card-options">
+                <span class="serie-title">{{ serie.title }}</span>
+                <span class="serie-option pl-1"> &times;</span>
+                <span class="mb-2 serie-option pl-1" *ngFor="let opt of serie.visible; index as i;" [ngClass]="{'text-muted': !opt.value }">
          {{ opt.title }}
          </span>
-      </div>
-      <!--<input [(ngModel)]="serie.where.selected" [typeahead]="serie.where.options" typeaheadOptionField="title" class="form-control">-->
-    
-    <span class="serie-title">
+            </div>
+            <!--<input [(ngModel)]="serie.where.selected" [typeahead]="serie.where.options" typeaheadOptionField="title" class="form-control">-->
+
+            <span class="serie-title">
       Mesaure
     </span>
-    <!--<span class="serie-option pl-1" *ngFor="let opt of serie.options; index as i; trackBy: trackByFn" [ngClass]="{'text-muted': !opt.value }"> 
+            <!--<span class="serie-option pl-1" *ngFor="let opt of serie.options; index as i;" [ngClass]="{'text-muted': !opt.value }">
       {{ opt.title }}
     </span>-->
 
-    <div class="btn-group btn-block mt-1 mb-2" dropdown>
-      <button id="measureDropDownButton" dropdownToggle type="button" class="btn btn-default dropdown-toggle btn-block btn-sm" aria-controls="dropdown-basic">
+            <div class="btn-group btn-block mt-1 mb-2" dropdown>
+                <button id="measureDropDownButton" dropdownToggle type="button" class="btn btn-default dropdown-toggle btn-block btn-sm" aria-controls="dropdown-basic">
     {{serie.title || 'Select' }} <span class="caret"></span>
   </button>
-      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-        <li *ngFor="let measure of serie.measure; index as i; trackBy: trackByFn" role="menuitem">
-          <a class="dropdown-item" (click) = "triggerMeasureDropDown(measure.title, serieIndex)">{{ measure.title }}</a>
-        </li>
-      </ul>
-    </div>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li *ngFor="let measure of serie.measure; index as i;" role="menuitem">
+                        <a class="dropdown-item" (click)="triggerMeasureDropDown(measure.title, serieIndex)">{{ measure.title }}</a>
+                    </li>
+                </ul>
+            </div>
 
-    <span class="serie-title">
+            <span class="serie-title">
       Location
-    </span> 
+    </span>
 
-    <div class="btn-group btn-block mt-1 mb-2" dropdown>
-      <button id="locationDropDownButton" dropdownToggle type="button" class="btn btn-default dropdown-toggle btn-block btn-sm" aria-controls="dropdown-basic">
+            <div class="btn-group btn-block mt-1 mb-2" dropdown>
+                <button id="locationDropDownButton" dropdownToggle type="button" class="btn btn-default dropdown-toggle btn-block btn-sm" aria-controls="dropdown-basic">
     {{ titleLocationDropDownButton(serieIndex) }} <span class="caret"></span>
   </button>
-      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-        <li *ngFor="let location of serie.locations; index as locationIndex; trackBy: trackByFn" role="menuitem">
-          <a class="dropdown-item" (click) = "triggerLocationDropDown(location.title, locationIndex, serieIndex)">{{ location.title }}</a>
-        </li>
-      </ul>
-    </div>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li *ngFor="let location of serie.locations; index as locationIndex;" role="menuitem">
+                        <a class="dropdown-item" (click)="triggerLocationDropDown(location.title, locationIndex, serieIndex)">{{ location.title }}</a>
+                    </li>
+                </ul>
+            </div>
 
-    <span class="serie-title" style="width: 100%">
+            <span class="serie-title" style="width: 100%">
       Scenarios
     </span>
-    <br>
-    <div class="container-scenarios">
-      <div class="form-check" *ngFor="let scenario of serie.scenarios; index as scenerarioIndex; trackBy: trackByFn">
-        <label class="form-check-label" (click) = "toggleScenariosCheckBox(scenario.title,scenerarioIndex, serieIndex)">
+            <br>
+            <div class="container-scenarios">
+                <div class="form-check" *ngFor="let scenario of serie.scenarios; index as scenerarioIndex;">
+                    <label class="form-check-label" (click)="toggleScenariosCheckBox(scenario.title,scenerarioIndex, serieIndex)">
           <input type="checkbox" class="form-check-input" [attr.checked] = "scenario.value ? 'checked' : null">{{ scenario.title }}
         </label>
-      </div>
-    </div>
-  </div>
+                </div>
+            </div>
+        </div>
 
-</div>
+    </div>

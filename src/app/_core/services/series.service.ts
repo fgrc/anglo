@@ -1,7 +1,7 @@
 import { Injectable }                        from '@angular/core';
 import { Store }                             from '@ngrx/store';
-import { Observable, Subject }               from 'rxjs/Rx';
-import { BehaviorSubject }                   from 'rxjs/Rx';
+import { Observable, Subject }               from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 // Store
 import { filtersState, filtersStateActions } from '../store/filters.actions';
 import { seriesState, seriesStateActions }   from '../store/series.actions';
@@ -11,7 +11,7 @@ import { ISerie, Serie }                     from '../interfaces/series';
 import { data }                              from '../data';
 @Injectable()
 export class SeriesService {
-  
+
 
   constructor(private store: Store<filtersState | seriesState>) { }
 

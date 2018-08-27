@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
-import { Observable, Subject } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs';
 
-import { BehaviorSubject } from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 import { filtersState, filtersStateActions } from '../store/filters.actions';
 

@@ -12,7 +12,7 @@ import { seriesReducer } from './series.actions';
 */
 @NgModule({
   imports: [
-    StoreModule.provideStore({
+    StoreModule.forRoot({
       filters: filtersReducer,
       series: seriesReducer
     })

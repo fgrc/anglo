@@ -1,7 +1,7 @@
 import { Component, OnInit }                 from '@angular/core';
-import { Store }                             from '@ngrx/store';
+import { Store, select}                      from '@ngrx/store';
 import { Observable, Subject }               from 'rxjs/Rx';
-import { BehaviorSubject }                   from 'rxjs/Rx';              
+import { BehaviorSubject }                   from 'rxjs/internal/BehaviorSubject';
 import { FiltersService }                    from '../_core/services/filters.service';
 import { data }                              from '../_core/data';
 import { filtersState, filtersInitialState } from '../_core/store/filters.actions';
@@ -27,12 +27,12 @@ import { seriesState, seriesInitialState }   from '../_core/store/series.actions
             </div>
           </div>
         </div>
-    </div>    
+    </div>
   `,
   styles: []
 })
 export class VisualizationComponent implements OnInit {
-  
+
   private filtersState$;
   private filtersState;
 
@@ -51,11 +51,11 @@ export class VisualizationComponent implements OnInit {
   constructor(
     private filtersService: FiltersService,
     private store: Store<filtersState>
-    ) { 
-      // States
-      this.filtersState$ = this.store.select('filters');
-      this.seriesState$  = this.store.select('series');
-  
+    ) {
+      // States this.store.pipe(select(allAppointmentImports));
+      this.filtersState$ = this.store.pipe(select('filters'));
+      this.seriesState$  = this.store.pipe(select('series'));
+
       this.filters$  = this.filtersState$.map(state => state.filters);
       this.charts$   = this.seriesState$ .map(state => state.charts);
       this.series$   = this.seriesState$ .map(state => state.series);

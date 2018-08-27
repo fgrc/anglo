@@ -1,4 +1,11 @@
 import { Store, ActionReducer, Action } from '@ngrx/store';
+import 'rxjs/add/operator/map';
+declare module '@ngrx/store' {
+  interface Action {
+    type: string;
+    payload?: any;
+  }
+}
 
 // Actions Types
 export const setTimeScale = 'setTimeScale';
@@ -26,7 +33,7 @@ export interface filtersState {
 export const filtersInitialState: filtersState = {
     timeScale: '',
     measures : [],
-    filters  : [] 
+    filters  : []
 }
 
 // Reducer
