@@ -30,23 +30,24 @@ export class Serie implements ISerie{
 // Chart Interface
 export interface ICHart {
    serieId: number;
-   title: string;
-   legend: string [];
-   data: {key: string, values: number [] } []; 
+   title  : string;
+   legend : string [];
+   colors : string [];
+   data   : {key: string, values: number [] } []; 
 }
 
 export class Chart implements ICHart{
    serieId: number;
    title  : string;
    legend : string [];
-   xAxis  : string [];
+   colors  : string [];
    data: {key: string, values: number [] } [];
-   constructor(_serieId, _title, _legend, _data, _xAxis){
+   constructor(_serieId, _title, _legend, _data){
     this.serieId = _serieId;
     this.title   = _title;
     this.legend  = _legend;
     this.data    = _data;
-    this.xAxis   = _xAxis;
+    this.colors  = [];
    }
 }
 

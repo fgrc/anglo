@@ -8,8 +8,6 @@ import { SeriesService }                     from '../../_core/services/series.s
 import { FiltersService }                    from '../../_core/services/filters.service';
 
 
-import { data1 } from './data';
-
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
@@ -43,6 +41,8 @@ export class ChartsComponent implements OnInit {
     private charts$;
     private charts;
 
+    private colors = ['#2382f8', '#fa3f40', '#fc9537', '#fa365c', '#59d66f', '#43acd9', '#feca42', '#5a5ed1'];
+
   constructor(
     private store: Store<seriesState | filtersState>,
     private seriesService: SeriesService,
@@ -74,6 +74,7 @@ export class ChartsComponent implements OnInit {
     this.drawAxisY();
 
     this.drawLine();
+
   }
 
 
@@ -99,8 +100,11 @@ export class ChartsComponent implements OnInit {
   initAxisY() {
       this.y = [];
       for(let i = 0; i < this.totalSeries; i++){
+        const dataAux  = [];
+        this.charts[i].data.forEach((data) => data.values.forEach(v=> dataAux.push(v)));
+
         this.y[i] = d3Scale.scaleLinear().range([this.subHeightC, 0]);
-        this.y[i].domain(d3Array.extent(this.charts[i].data, (d) => d.values[0] ));
+        this.y[i].domain(d3Array.extent(dataAux, (d) => d ));
       }
   }
 
@@ -112,8 +116,7 @@ export class ChartsComponent implements OnInit {
           .call(d3Axis.axisBottom(this.x));
   }
 
-  drawAxisY () {
-    
+  drawAxisY () {   
     for(let i = 0; i < this.totalSeries; i++){
       this.svg.append('g')
           .attr('class', 'axis axis--y')
@@ -125,7 +128,7 @@ export class ChartsComponent implements OnInit {
           .attr('y', 6)
           .attr('dy', '.71em')
           .style('text-anchor', 'end')
-          .text('Unit Value');
+          .text(this.charts[i].title);
     }
 
   }
@@ -133,19 +136,27 @@ export class ChartsComponent implements OnInit {
  drawLine() {
       
       for(let i= 0; i < this.totalSeries; i ++){
-      
-        this.line.push( d3Shape.line()
-            .x( (d: any, j: number) => this.x(new Date(d.date)) )
-            .y( (d: any) => this.y[i](d.values[0] ) )
-        );
-        this.svg.append('path')
-            .datum(this.charts[i].data)
-            .attr('class', 'line')
-            .attr('stroke', '#007bff')
-            .attr('stroke-width', '1.5px')
-            .attr('transform', 'translate(0,' + (this.heightC - this.subHeightC * (i + 1 )  ) + ')')
-            .attr('d', this.line[i]);
+        this.charts[i].colors = [];
+        const subSeries = this.charts[0].data[0].values.length;
+
+        for (let zz = 0; zz < subSeries; zz++){
+          const line = d3Shape.line()
+              .x( (d: any) => this.x(new Date(d.date)) )
+              .y( (d: any) => this.y[i](d.values[zz] ) );
+          
+          
+          const color = this.colors[zz];
+          this.charts[i].colors.push(color);
+          this.line.push(line);
+          this.svg.append('path')
+              .datum(this.charts[i].data)
+              .attr('class', 'line')
+              .attr('stroke', color)
+              .attr('stroke-width', '1.5px')
+              .attr('transform', 'translate(0,' + (this.heightC - this.subHeightC * (i + 1 )  ) + ')')
+              .attr('d', line); 
         }
+      }
   }
 
 }

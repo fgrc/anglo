@@ -18776,7 +18776,7 @@ export const data = [
  {
    "Date": "31/12/2017",
    "Name": "Concetrado Fino",
-   "Value": "328,70",
+   "Value": "828,70",
    "Location": "Flotation",
    "Scenario": "Real"
  },
@@ -21520,7 +21520,7 @@ export const data = [
  {
    "Date": "31/12/2017",
    "Name": "Concetrado Fino",
-   "Value": "313,91",
+   "Value": "13,91",
    "Location": "Flotation",
    "Scenario": "Budget"
  },

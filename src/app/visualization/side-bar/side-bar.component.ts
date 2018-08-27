@@ -43,6 +43,8 @@ export class SideBarComponent implements OnInit {
   private crossfilters;
 
   private timeScales = ['Days', 'Weeks', 'Months', 'Years'];
+
+  private colors     = ['#2382f8', '#fa3f40', '#fc9537', '#fa365c', '#59d66f', '#43acd9', '#feca42', '#5a5ed1'];
   
 
   private timeScaleDropDownButtonTittle: string = 'Days';
@@ -185,6 +187,7 @@ export class SideBarComponent implements OnInit {
           this.charts.splice(chartIndex, 1);
         }else{
           this.charts[chartIndex].data.forEach(d => d.values.splice(legendIndex, 1));
+          this.charts[chartIndex].colors.splice(legendIndex, 1);
         }
       }
     };
@@ -234,7 +237,6 @@ export class SideBarComponent implements OnInit {
   initChart = (title: string, serieId: number, groupBy: any, legend: string, ) => {
     const keys   = this.seriesService.getKeysCrossfilter(groupBy);
     const values = this.seriesService.getAvrsCrossfilter(groupBy);
-    const xAxis  = this.seriesService.getDateCrossfilter(groupBy);
     const legendChart = [legend];
     const data   = keys.map((d,i) => { return {date: d, values: [ values[i] ] } });
     data.sort((a,b) => { 
@@ -242,7 +244,7 @@ export class SideBarComponent implements OnInit {
        const curr: any = new Date(a.date);
        return prev - curr
     }).reverse();
-    return new Chart(serieId, title, legendChart, data, xAxis);
+    return new Chart(serieId, title, legendChart, data);
   }
 
     

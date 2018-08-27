@@ -19,7 +19,7 @@ export interface seriesState {
         serieId : number,
         title   : string,
         legend  : string [],
-        xAxis   : string [],
+        colors  : string [];
         data    : {key: string, values: number [] } []
     }[];
     series: { 
