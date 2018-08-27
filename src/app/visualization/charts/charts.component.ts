@@ -1,4 +1,12 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ElementRef, Input, OnChanges } from '@angular/core';
+import { Store }                             from '@ngrx/store';
+
+import { seriesState, seriesStateActions }   from '../../_core/store/series.actions';
+import { filtersState, filtersStateActions } from '../../_core/store/filters.actions';
+// Services
+import { SeriesService }                     from '../../_core/services/series.service';
+import { FiltersService }                    from '../../_core/services/filters.service';
+
 
 import { data1 } from './data';
 
@@ -15,7 +23,7 @@ import * as d3Axis from 'd3-axis';
   styleUrls: ['./charts.component.css']
 })
 export class ChartsComponent implements OnInit {
-  
+      
     private margin = {top: 20, right: 20, bottom: 30, left: 50};
     private widthC: number;
     private heightC: number;
@@ -29,15 +37,34 @@ export class ChartsComponent implements OnInit {
 
     private totalSeries: number;
 
-  constructor() { 
+    private filtersState$;
+    private seriesState$;
+
+    private charts$;
+    private charts;
+
+  constructor(
+    private store: Store<seriesState | filtersState>,
+    private seriesService: SeriesService,
+  ) { 
     this.widthC = this.width - this.margin.left - this.margin.right;
     this.heightC = this.height - this.margin.top - this.margin.bottom;
-    this.totalSeries = data1[0].value.length;
-    this.subHeightC = this.heightC/this.totalSeries;
+    
+
+    this.filtersState$ = this.store.select('filters');
+    this.seriesState$  = this.store.select('series');
+
+    this.charts$       = this.seriesState$ .map(state => state.charts);
   }
 
   ngOnInit() {
-    
+    this.charts$.subscribe(charts => this.setCharts(charts));
+  }
+
+  setCharts(charts) {
+    this.charts = charts;
+    d3.select('#stacked-line-chart').selectAll("*").remove();
+    if(this.charts.length === 0) return
     this.initSvg();
     // Axis X
     this.initAxisX();
@@ -48,7 +75,13 @@ export class ChartsComponent implements OnInit {
 
     this.drawLine();
   }
+
+
   initSvg() {
+      
+      this.totalSeries = this.charts.length;
+      this.subHeightC = this.heightC/this.totalSeries;
+
       this.svg = d3.select('#stacked-line-chart')
           .append('svg')
           .attr('width', this.width)
@@ -59,14 +92,15 @@ export class ChartsComponent implements OnInit {
 
   initAxisX(){
     this.x = d3Scale.scaleTime().range([0, this.widthC]);
-    this.x.domain(d3Array.extent(data1, (d) => d.date ));    
+    const domain = d3Array.extent(this.charts[0].data, (d) => new Date(d.date) );
+    this.x.domain(domain);    
   }
 
   initAxisY() {
       this.y = [];
       for(let i = 0; i < this.totalSeries; i++){
         this.y[i] = d3Scale.scaleLinear().range([this.subHeightC, 0]);
-        this.y[i].domain(d3Array.extent(data1, (d) => d.value[i] ));
+        this.y[i].domain(d3Array.extent(this.charts[i].data, (d) => d.values[0] ));
       }
   }
 
@@ -101,11 +135,11 @@ export class ChartsComponent implements OnInit {
       for(let i= 0; i < this.totalSeries; i ++){
       
         this.line.push( d3Shape.line()
-            .x( (d: any) => this.x(d.date) )
-            .y( (d: any) => this.y[i](d.value[i] ) )
+            .x( (d: any, j: number) => this.x(new Date(d.date)) )
+            .y( (d: any) => this.y[i](d.values[0] ) )
         );
         this.svg.append('path')
-            .datum(data1)
+            .datum(this.charts[i].data)
             .attr('class', 'line')
             .attr('stroke', '#007bff')
             .attr('stroke-width', '1.5px')

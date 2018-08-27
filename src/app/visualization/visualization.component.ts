@@ -9,26 +9,7 @@ import { seriesState, seriesInitialState }   from '../_core/store/series.actions
 
 @Component({
   selector: 'visualization',
-  template: `
-    <div class="row col-sm-12 mr-0 ml-0">
-        <div class="col-sm-2">
-          <side-bar></side-bar>
-        </div>
-        <div class="col-sm-10">
-          <div class="container-visualization container-fluid">
-            <top-bar></top-bar>
-            <div class="row">
-              <div class="col-sm-9">
-                <charts></charts>
-              </div>
-              <div class="col-sm-3">
-                <legend></legend>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>    
-  `,
+  templateUrl: './visualization.html',  
   styles: []
 })
 export class VisualizationComponent implements OnInit {
@@ -65,17 +46,14 @@ export class VisualizationComponent implements OnInit {
       this.crossfilters$   = this.seriesState$ .map(state => state.crossfilters);
      }
 
+  getDataChart = () => Math.random();
+
   ngOnInit() {
     const measures = data.filter((v, i, a) => a.findIndex(d => d.Name === v.Name) === i).map(d => d.Name);
     this.filtersService.setMeasures(measures);
     this.crossfilters$ .subscribe(crossfilters => this.crossfilters = crossfilters);
-    this.filters$      .subscribe(filters  => {
-      this.filters  = filters;
-      let _data = data;
-      
-    });
-    // this.series$  .subscribe(series   => this.series   = series);
-    // this.charts$  .subscribe(charts   => this.charts   = charts);
+    this.series$  .subscribe(series   => this.series   = series);
+    this.charts$  .subscribe(charts   => this.charts   = charts);
   }
 
 }

@@ -5,7 +5,7 @@ export interface ISerie {
     options:   {title: string, value: boolean} [], 
     visible:   {title: string, value: boolean} [], 
     measure:   {title: string, value: boolean} [], 
-    locations:  {title: string, value: boolean} [],
+    locations: {title: string, value: boolean} [],
     scenarios: {title: string, value: boolean} []
 }
 
@@ -32,19 +32,21 @@ export interface ICHart {
    serieId: number;
    title: string;
    legend: string [];
-   data: {date: Date, value: number [] } []; 
+   data: {key: string, values: number [] } []; 
 }
 
 export class Chart implements ICHart{
    serieId: number;
-   title: string;
-   legend: string [];
-   data: {date: Date, value: number [] } [];
-   constructor(_serieId, _title, _legend, _data){
+   title  : string;
+   legend : string [];
+   xAxis  : string [];
+   data: {key: string, values: number [] } [];
+   constructor(_serieId, _title, _legend, _data, _xAxis){
     this.serieId = _serieId;
     this.title   = _title;
     this.legend  = _legend;
     this.data    = _data;
+    this.xAxis   = _xAxis;
    }
 }
 
@@ -53,7 +55,10 @@ export interface ICrossfilter {
     title      : string;
     serieId    : number;
     data       : any;
-    dimensions : any;
+    dimensions : {
+        title     : string,
+        dimension : any
+    }[];
     groups     : any;
 }
 
@@ -61,7 +66,10 @@ export class Crossfilter implements ICrossfilter{
     title      : string;
     serieId    : number;
     data       : any;
-    dimensions : any;
+    dimensions : {
+        title     : string,
+        dimension : any
+    }[];
     groups     : any;
     constructor(_title: string, _serieId: number, _data: any){
         this.title      = _title;
