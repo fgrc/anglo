@@ -1,7 +1,8 @@
-import { Component, OnInit }                 from '@angular/core';
+import { Component, OnInit,OnDestroy }       from '@angular/core';
 import { Store }                             from '@ngrx/store';
 import { sidebarTransitions }                from './side-bar.animations';
 
+import { Subscription }                      from "rxjs";
 import { BehaviorSubject }                   from 'rxjs/internal/BehaviorSubject';
 import { Observable }                        from 'rxjs/Rx';
 // Store
@@ -18,13 +19,16 @@ import { IFilter, Filter }                   from '../../_core/interfaces/filter
 // Data
 import { data }                              from '../../_core/data'
 
+import { SidebarService }                    from './side-bar.service';
+
 @Component({
   selector: 'side-bar',
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss'],
   animations: [sidebarTransitions],
 })
-export class SideBarComponent implements OnInit {
+export class SideBarComponent implements OnInit, OnDestroy {
+  private sidebarStateSub:Subscription;
 
   public Title = 'Flotación'
 
@@ -52,12 +56,12 @@ export class SideBarComponent implements OnInit {
 
 
   private timeScaleDropDownButtonTittle: string = 'Days';
-
-  public sidebarState = 'open';
+  public sidebarState:string;
   constructor(
     private store: Store<seriesState | filtersState>,
     private seriesService: SeriesService,
     private filtersService: FiltersService,
+    private sidebarService:SidebarService
     ) {
     // States
     this.filtersState$ = this.store.select('filters');
@@ -77,17 +81,11 @@ export class SideBarComponent implements OnInit {
     this.series$      .subscribe(series       => this.series       = series);
     this.charts$      .subscribe(charts       => this.charts       = charts);
     this.crossfilters$.subscribe(crossfilters => this.crossfilters = crossfilters);
-  }
-  toggleSidebar(event) {
-    let target = event.target || event.srcElement || event.currentTarget;
-    if (this.sidebarState === 'open'){
-      this.sidebarState = 'close';
-      target.innerHTML='Show';
-    }else{
-      this.sidebarState = 'open';
-      target.innerHTML='Hide';
-    }
-    console.log(target);
+
+    this.sidebarStateSub=this.sidebarService.getSidebarStateStatusListener().subscribe(
+      changedSidebarState=>{
+        this.sidebarState=changedSidebarState?'open':'close';
+      });
   }
   triggerDropDownTimeScale = (title: string) => {
     this.filtersService.setTimeScale(title);
@@ -273,4 +271,7 @@ export class SideBarComponent implements OnInit {
   setCrossfilters = () => this.seriesService.setCrossfilters(this.crossfilters);
 
 
+  ngOnDestroy(){
+    this.sidebarStateSub.unsubscribe();
+  }
 }

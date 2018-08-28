@@ -1,12 +1,13 @@
-<div class="row col-sm-12 mr-0 ml-0">
-  <div class="col-sm-2">
+<div class="row mx-0 visualizationMainWrapper">
+  <span class='toggleSidebarBtn mx-auto' (click)="toggleSidebar($event)">Hide sidebar</span>
+  <div class='col-auto'>
     <side-bar></side-bar>
   </div>
-  <div class="col-sm-10">
+  <div class='col'>
     <div class="container-visualization container-fluid">
       <top-bar></top-bar>
       <div class="row">
-        <h2 *ngIf = "charts.length === 0" class="text-no-data">No data</h2>
+        <h2 *ngIf="charts.length === 0" class="text-no-data">No data</h2>
         <div class="col-sm-9">
           <charts></charts>
         </div>

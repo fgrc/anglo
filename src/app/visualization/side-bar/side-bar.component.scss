@@ -17,7 +17,11 @@
   border-radius: 5px;
   padding: 3px;
 }
+.addedBox{
+  max-width: 200px;
+}
 .side-bar {
+  min-width: 200px;
   overflow-y: auto;
   -webkit-box-flex: 2;
   -ms-flex: 2;

@@ -23,7 +23,7 @@ import * as d3Axis from 'd3-axis';
   styleUrls: ['./charts.component.css']
 })
 export class ChartsComponent implements OnInit {
-      
+
     private margin = {top: 20, right: 20, bottom: 30, left: 50};
     private widthC: number;
     private heightC: number;
@@ -43,18 +43,18 @@ export class ChartsComponent implements OnInit {
 
     private charts$;
     private charts;
-    
+
     @ViewChild('stackedlinechart') stackedlinechart;
 
     private colors = ['#2382f8', '#fa3f40', '#fc9537', '#fa365c', '#59d66f', '#43acd9', '#feca42', '#5a5ed1'];
 
-    private valuesTooltip = {title: 'Flotation', date: '', data:[]};
+    public valuesTooltip = {title: 'Flotation', date: '', data:[]};
 
   constructor(
     private store: Store<seriesState | filtersState>,
     private seriesService: SeriesService
-  ) { 
-    
+  ) {
+
 
     this.filtersState$ = this.store.select('filters');
     this.seriesState$  = this.store.select('series');
@@ -71,7 +71,7 @@ export class ChartsComponent implements OnInit {
     this.height = this.stackedlinechart.nativeElement.getBoundingClientRect().height;
     this.widthC = this.width - this.margin.left - this.margin.right;
     this.heightC = this.height - this.margin.top - this.margin.bottom;
-    
+
 
     this.charts = charts;
     d3.select('#stacked-line-chart').selectAll("*").remove();
@@ -90,7 +90,7 @@ export class ChartsComponent implements OnInit {
 
 
   initSvg() {
-      
+
       this.totalSeries = this.charts.length;
       this.subHeightC = this.heightC/this.totalSeries;
 
@@ -105,7 +105,7 @@ export class ChartsComponent implements OnInit {
   initAxisX(){
     this.x = d3Scale.scaleTime().range([0, this.widthC]);
     const domain = d3Array.extent(this.charts[0].data, (d) => new Date(d.date) );
-    this.x.domain(domain);    
+    this.x.domain(domain);
   }
 
   initAxisY() {
@@ -127,7 +127,7 @@ export class ChartsComponent implements OnInit {
           .call(d3Axis.axisBottom(this.x));
   }
 
-  drawAxisY () {   
+  drawAxisY () {
     for(let i = 0; i < this.totalSeries; i++){
       this.svg.append('g')
           .attr('class', 'axis axis--y')
@@ -155,8 +155,8 @@ export class ChartsComponent implements OnInit {
           const line = d3Shape.line()
               .x( (d: any) => this.x(new Date(d.date)) )
               .y( (d: any) => this.y[i](d.values[zz] ) );
-          
-          
+
+
           const color = this.colors[zz];
           this.charts[i].colors.push(color);
           const id = i.toString() + '-' + zz;
@@ -189,8 +189,8 @@ export class ChartsComponent implements OnInit {
               .on('mouseover', (dd, ii, ee) => this.drawTooltip(dd, ii, ee, id))
               .on('mouseout', (dd, ii, ee) => this.hideTooltip(dd, ii, ee, id) )
 
-          
-          this.dots.push(dots);           
+
+          this.dots.push(dots);
         }
       }
   }
@@ -211,11 +211,11 @@ export class ChartsComponent implements OnInit {
     const chartIndex = id.split('-')[0];
     const lineIndex  = id.split('-')[1];
     const val        = new Date(d.date);
-    
+
     // opacity lines
     this.opacityAllLines(0.3);
     lineSelected.style("opacity", 1);
-    
+
     // draw Vertical Line
     const widthLine = 1;
     const verticalLine = this.svg
@@ -254,19 +254,19 @@ export class ChartsComponent implements OnInit {
 
   hideTooltip(d, i, e, id){
     this.opacityAllLines(1);
-    
+
     d3.selectAll('.tooltip')
       .transition()
       .duration(50)
       .style('opacity', 0)
       .style('display', 'none')
-    
+
     const verticalLine = this.svg.selectAll('.vertical-line-tooltip')
     verticalLine.transition().duration(50).style('opacity', 0).remove();
 
     this.valuesTooltip.date = '';
     this.valuesTooltip.data = [];
-      
+
   }
 
   opacityAllLines(opacity){
