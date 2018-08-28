@@ -1,0 +1,21 @@
+.legend-color{
+    height: 12px;
+    width: 12px;
+    border: 1px solid rgba(2, 45, 119, 0.4);
+    box-shadow: 1px 1px 15px rgba(234, 234, 234, 0.3);
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.legend-title{
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: small;
+    color: #022d77;
+}
+
+.legend-body{
+    text-transform: uppercase;
+    font-size: small;
+    color: #022d77;
+}
