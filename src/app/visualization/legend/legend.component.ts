@@ -42,8 +42,10 @@ export class LegendComponent implements OnInit {
   setLegend(charts){
     this.legend = [];
     charts.forEach((chart) => {
-      chart.legend.forEach((e, i) => { this.legend.push({color: chart.colors[i], text: chart.title + ' - ' + e}) })
+      chart.legend.forEach((e, i) => { this.legend.push({color: chart.colors[i], text: chart.title + ' - ' + e, active: false}) })
     })
+    debugger
+    // this.seriesService.setLegends(this.legend)
   }
 
 }

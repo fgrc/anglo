@@ -25,7 +25,7 @@ export class SeriesService {
 
   setSeries = (series: any) => this.store.dispatch({ type: seriesStateActions.setSeries, payload: series });
 
-  setLegend = (legend: any) => this.store.dispatch({ type: seriesStateActions.setLegend, payload: legend })
+  setLegends = (legend: any) => this.store.dispatch({ type: seriesStateActions.setLegend, payload: legend })
 
   setCrossfilters = (crossfilters: any)  => this.store.dispatch({ type: seriesStateActions.setCrossfilters, payload: crossfilters });
 
