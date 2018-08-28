@@ -5,10 +5,11 @@
     height: 60px;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-bottom: 10px;
     a {
       z-index: 1;
-      margin-left: 20px;
+    //  margin-left: 20px;
       img {
         width: 200px;
       }
@@ -22,6 +23,7 @@
 div.title-wrapper {
   // position: absolute;
   // float: left;
+  display: none;
   width: 100vw;
   text-align: center;
   h3 {

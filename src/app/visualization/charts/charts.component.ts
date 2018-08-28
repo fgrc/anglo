@@ -71,8 +71,6 @@ export class ChartsComponent implements OnInit {
     this.height = this.stackedlinechart.nativeElement.getBoundingClientRect().height;
     this.widthC = this.width - this.margin.left - this.margin.right;
     this.heightC = this.height - this.margin.top - this.margin.bottom;
-
-
     this.charts = charts;
     d3.select('#stacked-line-chart').selectAll("*").remove();
     if(this.charts.length === 0) return
@@ -149,13 +147,13 @@ export class ChartsComponent implements OnInit {
       this.dots = [];
       for(let i= 0; i < this.totalSeries; i ++){
         this.charts[i].colors = [];
-        const subSeries = this.charts[0].data[0].values.length;
 
+        const subSeries = this.charts[i].legend.length;
+        
         for (let zz = 0; zz < subSeries; zz++){
           const line = d3Shape.line()
               .x( (d: any) => this.x(new Date(d.date)) )
               .y( (d: any) => this.y[i](d.values[zz] ) );
-
 
           const color = this.colors[zz];
           this.charts[i].colors.push(color);

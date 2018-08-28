@@ -1,5 +1,6 @@
 mat-card {
   margin: auto;
+  max-width: 450px;
 }
 
 mat-form-field,
@@ -8,4 +9,19 @@ textarea {
 }
 mat-spinner{
   margin:auto;
+}
+.mat-raised-button:not([class*=mat-elevation-z]) {
+	box-shadow: none;
+}
+.mat-raised-button{
+	background-color: #084E8A;
+	border-radius: .2rem;
+	cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    padding: .25em;
+    font-size: 1rem;
+}
+.mat-raised-button:hover {
+	background-color: #023969;
 }
