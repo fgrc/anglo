@@ -31,7 +31,7 @@ export class ChartsComponent implements OnInit {
     private x: any;
     private y: any;
     private svg: any;
-    private width: number = 1100;
+    private width: number;
     private height: number = 800;
     private line: any = [];
     private dots: any = [];
@@ -43,6 +43,8 @@ export class ChartsComponent implements OnInit {
 
     private charts$;
     private charts;
+    
+    @ViewChild('stackedlinechart') stackedlinechart;
 
     private colors = ['#2382f8', '#fa3f40', '#fc9537', '#fa365c', '#59d66f', '#43acd9', '#feca42', '#5a5ed1'];
 
@@ -65,7 +67,8 @@ export class ChartsComponent implements OnInit {
   }
 
   setCharts(charts) {
-    
+    this.width = this.stackedlinechart.nativeElement.getBoundingClientRect().width;
+    this.height = this.stackedlinechart.nativeElement.getBoundingClientRect().height;
     this.widthC = this.width - this.margin.left - this.margin.right;
     this.heightC = this.height - this.margin.top - this.margin.bottom;
     
@@ -274,7 +277,7 @@ export class ChartsComponent implements OnInit {
 
   dropShadow() {
     let defs = this.svg.append('defs');
-    let stdDeviation = 8;
+    let stdDeviation = 1;
 
     // create filter with id #drop-shadow
     // height=130% so that the shadow is not clipped
