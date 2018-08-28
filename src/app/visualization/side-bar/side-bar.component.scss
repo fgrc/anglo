@@ -15,25 +15,24 @@ $border-line: #dfe3e8;
   border-radius: 5px;
   padding: 3px;
 }
-.addedBox{
-  max-width: 200px;
-}
 .side-bar {
-  min-width: 220px;
-  overflow-y: auto;
-  -webkit-box-flex: 2;
-  -ms-flex: 2;
-  flex: 2;
-  background-color: #f9f9f9;
-  background: linear-gradient(45deg, #f9f9f9, #ffffff);
-  box-shadow: 0 0 1px #012a77;
-  // box-shadow: 1px 1px 15px rgba(234, 234, 234, 0.7);
-  margin-left: 0px;
-  margin-bottom: 10px;
-  height: calc(100vh - 90px);
-  padding: 20px 10px;
-  width: 100%;
+    background-color: #f9f9f9;
+    background: linear-gradient(45deg, #f9f9f9, #ffffff);
+    border: 1px solid $border-color;
+    margin-bottom: 1em;
+    padding: 20px 15px 15px;
 
+    .title {
+        color: $main-blue;
+        border-bottom: 1px solid $border-line;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1em;
+        padding-bottom: 5px;
+        text-align: center;
+        text-transform: uppercase;
+
+    }
     .container-time-scale{
         border-bottom: 1px solid $border-line;
         margin-bottom: 10px;
@@ -63,12 +62,24 @@ $border-line: #dfe3e8;
         margin-bottom: 3px;
     }
     .serie-title.first {
-        background: rgba(102, 51, 153, 0.2);
-        border-left: 4px solid rebeccapurple;
         border-radius: .2rem .2rem 0 0;
         margin: -1rem -1rem .75rem;
-        padding: .75em;
         text-align: left;
+        &.TPH {
+            background-color: rgba(80, 36, 143, 0.2);
+            border-left: 3px solid #50248F;
+            padding: .75em;
+        }
+        &.Concetrado {
+            background-color: rgba(71, 193, 191, 0.2);
+            border-left: 3px solid #47C1BF;
+            padding: .75em;
+        }
+        &.Recuperación {
+            background-color: rgba(244, 147, 66, 0.2);
+            border-left: 3px solid #F49342;
+            padding: .75em;
+        }
     }
     .serie-option{
         border: 1px solid;
@@ -101,25 +112,6 @@ $border-line: #dfe3e8;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
     }
   
-
-  .card-options {
-    height: 20px;
-    margin-bottom: 10px;
-  }
-  .serie-title {
-    color: #022d77;
-    float: left;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: small;
-  }
-
-  .serie-option {
-    float: right;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: small;
-  }
 }
 .text-muted {
     color: #a0aec9!important;
@@ -149,12 +141,4 @@ $border-line: #dfe3e8;
 }
 .card-body {
     padding: 1rem;
-}
-
-.btn-primary {
-    background-color: $main-blue;
-    border-color: $main-blue;
-    &.active, &:hover {
-        background-color: $main-blue-hover;
-    }
 }

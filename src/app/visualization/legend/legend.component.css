@@ -21,10 +21,7 @@
     display: inline-block;
     margin-right: 8px;
 }
-.tph {
-    background-color: rgba(80, 36, 143, 0.2);
-    border-color: #50248F;
-}
+
 .tph-l-real {
     background-color: #230051;
 }
@@ -44,10 +41,6 @@
     stroke: #ccc9d0;    
 }
 
-.concentrado {
-    background-color: rgba(71, 193, 191, 0.2);
-    border-color: #47C1BF;
-}
 .concentrado-l-real {
     background-color: #003135;
 }
@@ -65,9 +58,4 @@
 }
 .concentrado-prediction {
     stroke: #b4cccc;
-}
-
-.recuperacion {
-    background-color: rgba(244, 147, 66, 0.2);
-    border-color: #F49342;
 }

@@ -64,27 +64,17 @@ b.icon {
 .btn-info:hover {
   background-color: #169455;  
 }
+.btn-primary {
+    background-color: #084E8A;
+    border-color: #084E8A;
+}
+.btn-primary.active, .btn-primary:hover {
+    background-color: #023969;
+}
 .main-container {
   padding: 0;
 }
 
-@media (min-width: 576px) {
-  .main-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 15px;
-  }
-  .sidebar-container {
-    flex: 1 0 auto;
-    min-width: 300px;
-    padding-left: 0;
-  }
-  .content-container {
-      flex: 2 0 auto;
-      margin: 0 auto;
-      padding: 0;
-      width: auto;
-  }
 .tooltip {
   display: none;
   width: 380px;
@@ -116,4 +106,23 @@ b.icon {
     margin-top: 24px;
     position: absolute;
 }
+
+@media (min-width: 576px) {
+  .main-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+  }
+  .sidebar-container {
+    flex: 1 0 auto;
+    max-width: 300px;
+    padding-left: 0;
+    width: 300px;
+  }
+  .content-container {
+      flex: 3 0 auto;
+      margin: 0 auto;
+      padding: 0;
+      width: auto;
+  }
 }

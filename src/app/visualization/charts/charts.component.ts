@@ -46,7 +46,7 @@ export class ChartsComponent implements OnInit {
 
     @ViewChild('stackedlinechart') stackedlinechart;
 
-    private colors = ['#2382f8', '#fa3f40', '#fc9537', '#fa365c', '#59d66f', '#43acd9', '#feca42', '#5a5ed1'];
+    private colors = ['#9C6ADE', '#50238f', '#eae1f7', '#fa365c', '#003135', '#47C1BF', '#b4cccc', '#5a5ed1'];
 
     public valuesTooltip = {title: 'Flotation', date: '', data:[]};
 
