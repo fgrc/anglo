@@ -10,6 +10,7 @@ import { StateStoreModule } from './_core/store/state.store.module'
 import { AngulaMaterialModule } from './angular-material.module';
 
 import { VisualizationModule } from './visualization/visualization.module';
+import { AuthenticatedNavigationModule } from './authenticated-navigation/authenticated-navigation.module';
 
 // Components
 import { AppComponent } from './app.component';
@@ -33,6 +34,7 @@ import { AppRoutingModule } from './app-routing.module';
     AngulaMaterialModule,
     SharedModule,
     VisualizationModule,
+    AuthenticatedNavigationModule,
     StateStoreModule
   ],
   providers: [
