@@ -1,5 +1,7 @@
 import { Component, OnInit }                 from '@angular/core';
 import { Store }                             from '@ngrx/store';
+import { sidebarTransitions }                from './side-bar.animations';
+
 import { BehaviorSubject }                   from 'rxjs/internal/BehaviorSubject';
 import { Observable }                        from 'rxjs/Rx';
 // Store
@@ -19,7 +21,8 @@ import { data }                              from '../../_core/data'
 @Component({
   selector: 'side-bar',
   templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.scss']
+  styleUrls: ['./side-bar.component.scss'],
+  animations: [sidebarTransitions],
 })
 export class SideBarComponent implements OnInit {
 
@@ -46,20 +49,20 @@ export class SideBarComponent implements OnInit {
   private timeScales = ['Days', 'Weeks', 'Months', 'Years'];
 
   private colors     = ['#2382f8', '#fa3f40', '#fc9537', '#fa365c', '#59d66f', '#43acd9', '#feca42', '#5a5ed1'];
-  
+
 
   private timeScaleDropDownButtonTittle: string = 'Days';
 
-
+  public sidebarState = 'open';
   constructor(
     private store: Store<seriesState | filtersState>,
     private seriesService: SeriesService,
-    private filtersService: FiltersService
+    private filtersService: FiltersService,
     ) {
     // States
     this.filtersState$ = this.store.select('filters');
     this.seriesState$  = this.store.select('series');
-    
+
     this.measures$     = this.filtersState$.map(state => state.measures);
     this.filters$      = this.filtersState$.map(state => state.filters);
     this.series$       = this.seriesState$ .map(state => state.series);
@@ -75,7 +78,17 @@ export class SideBarComponent implements OnInit {
     this.charts$      .subscribe(charts       => this.charts       = charts);
     this.crossfilters$.subscribe(crossfilters => this.crossfilters = crossfilters);
   }
-
+  toggleSidebar(event) {
+    let target = event.target || event.srcElement || event.currentTarget;
+    if (this.sidebarState === 'open'){
+      this.sidebarState = 'close';
+      target.innerHTML='Show';
+    }else{
+      this.sidebarState = 'open';
+      target.innerHTML='Hide';
+    }
+    console.log(target);
+  }
   triggerDropDownTimeScale = (title: string) => {
     this.filtersService.setTimeScale(title);
     this.timeScaleDropDownButtonTittle = title;
@@ -97,7 +110,7 @@ export class SideBarComponent implements OnInit {
 
     const filterIndex         = this.filters.findIndex(d => d.serieId === serieIndex);
     const locationFilterIndex = this.filters[filterIndex].locations.findIndex(d => d.title === title);
-    
+
     if(locationFilterIndex === -1){
       this.filters[filterIndex].locations.push(title);
     }
@@ -107,7 +120,7 @@ export class SideBarComponent implements OnInit {
 
   triggerMeasureDropDown = (title: string, serieIndex: number) => {
 
-    if (this.series[serieIndex].title === title) return 
+    if (this.series[serieIndex].title === title) return
 
 
     let  dataSerie  = data.filter(d => d.Name === title );
@@ -118,7 +131,7 @@ export class SideBarComponent implements OnInit {
 
     // assign Scenerarios & Locations
     Object.assign(this.series[serieIndex], {title: title, locations: locations, scenarios: scenarios});
-    
+
     // Crossfilter
     const crossfilterIndex = this.crossfilters.findIndex(d => d.serieId === serieIndex);
 
@@ -146,9 +159,9 @@ export class SideBarComponent implements OnInit {
     }else{
       this.charts[chartIndex] = chart;
     }
-    
+
     // set Values
-    this.setSeries();    
+    this.setSeries();
 
     this.setFilter({serieId: serieIndex, measure: title, locations: [], scenarios: ['Real']});
     this.setFilters();
@@ -157,12 +170,12 @@ export class SideBarComponent implements OnInit {
   }
 
   toggleScenariosCheckBox = (title: string, scenerarioIndex: number, serieIndex: number) => {
-    
+
     // Crossfilter && Chart
     if(!this.series[serieIndex].scenarios[scenerarioIndex].value){
-      
+
       // Crossfilter
-      const crossfilter = this.initAllValuesCrossfilters(this.series[serieIndex].title, serieIndex); 
+      const crossfilter = this.initAllValuesCrossfilters(this.series[serieIndex].title, serieIndex);
       this.seriesService.filterScenarios(crossfilter.dimensions.find(d => d.title === 'scenario').dimension, [title]);
       // Group
       const groupByTime      = this.seriesService.initGroupBy(crossfilter.dimensions.find(d => d.title === 'time').dimension);
@@ -172,18 +185,18 @@ export class SideBarComponent implements OnInit {
       const chartIndex = this.charts.findIndex(d => d.serieId === serieIndex);
       const values = this.seriesService.getAvrsCrossfilter(groupByTime);
       this.charts[chartIndex].legend.push(legend);
-      this.charts[chartIndex].data.forEach((d,i) => d.values.push(values[i]));      
+      this.charts[chartIndex].data.forEach((d,i) => d.values.push(values[i]));
 
       // Assign Values
       this.crossfilters.push(crossfilter);
     }else{
       const crossfilterIndex = this.crossfilters.findIndex(d => d.groups.findIndex(v => v.scenario === title) !== -1);
       if (crossfilterIndex !== -1) this.crossfilters.splice(crossfilterIndex, 1);
-      
+
       // Charts Index
       const chartIndex  = this.charts.findIndex(d => d.serieId === serieIndex);
       const legendIndex = this.charts[chartIndex].legend.findIndex(d => d === title);
-      
+
       // Remove Charts
       if (chartIndex !== -1 && legendIndex !== -1){
         this.charts[chartIndex].legend.splice(legendIndex,1);
@@ -197,7 +210,7 @@ export class SideBarComponent implements OnInit {
     };
 
     //Charts
-        
+
     this.series[serieIndex].scenarios[scenerarioIndex].value = !this.series[serieIndex].scenarios[scenerarioIndex].value;
 
     const filterIndex = this.filters.findIndex(d => d.serieId === serieIndex);
@@ -206,7 +219,7 @@ export class SideBarComponent implements OnInit {
     this.series[serieIndex].scenarios.forEach(d => d.value ? sceneariosFilters.push(d.title): '');
 
     Object.assign(this.filters[filterIndex], {scenearios: sceneariosFilters});
-    
+
     this.setFilters();
     this.setSeries();
 
@@ -224,19 +237,19 @@ export class SideBarComponent implements OnInit {
       Object.assign(this.filters[filterIndex], params);
     }
   }
-  
+
   initAllValuesCrossfilters = (title: string, serieIndex: number) => {
     // Create Crossfilter
     let   crossfilter       = this.seriesService.initCrossfilter(title, serieIndex);
     // Create Dimension
     const timeDimension     = this.seriesService.initTimeDimension(crossfilter.data, this.timeScaleDropDownButtonTittle);
     const scenarioDimension = this.seriesService.initSceneraioDimension(crossfilter.data);
-    const locationDimension = this.seriesService.initSceneraioDimension(crossfilter.data);      
+    const locationDimension = this.seriesService.initSceneraioDimension(crossfilter.data);
     //Assign Values
     crossfilter.dimensions.push({ title: 'time', dimension: timeDimension });
     crossfilter.dimensions.push({ title: 'scenario', dimension: scenarioDimension });
     crossfilter.dimensions.push({ title: 'location', dimension: locationDimension });
-    
+
     return crossfilter;
   }
 
@@ -245,7 +258,7 @@ export class SideBarComponent implements OnInit {
     const values = this.seriesService.getAvrsCrossfilter(groupBy);
     const legendChart = [legend];
     const data   = keys.map((d,i) => { return {date: d, values: [ values[i] ] } });
-    data.sort((a,b) => { 
+    data.sort((a,b) => {
        const prev: any = new Date(b.date);
        const curr: any = new Date(a.date);
        return prev - curr
@@ -253,7 +266,7 @@ export class SideBarComponent implements OnInit {
     return new Chart(serieId, title, legendChart, data);
   }
 
-    
+
   setCharts       = () => this.seriesService.setCharts(this.charts);
   setFilters      = () => this.filtersService.setFilters(this.filters)
   setSeries       = () => this.seriesService.setSeries(this.series);

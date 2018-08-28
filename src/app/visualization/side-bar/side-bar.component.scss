@@ -11,7 +11,12 @@
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
-
+.toggleSidebarBtn {
+  background-color: white;
+  border: 1px solid #a8b5ce;
+  border-radius: 5px;
+  padding: 3px;
+}
 .side-bar {
   overflow-y: auto;
   -webkit-box-flex: 2;

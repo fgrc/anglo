@@ -1,4 +1,6 @@
-<div class="side-bar animatedBlock">
+
+<span class='toggleSidebarBtn mx-auto' (click)="toggleSidebar($event)">Hide</span>
+<div [@toggleSidebar]="sidebarState" class="side-bar animatedBlock mt-2">
     <h4 class="title">{{ Title }}</h4><br>
     <div class="container-time-scale">
         <span class="sub-title">Time-Scale</span> <br>
@@ -29,7 +31,7 @@
   </div>-->
 
 
-    <div class="card mb-2" *ngFor="let serie of series; index as serieIndex;">
+    <div [@fadeIn] class="card mb-2" *ngFor="let serie of series; index as serieIndex;">
         <div class="card-body">
             <div class="card-options">
                 <span class="serie-title">{{ serie.title }}</span>
