@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, ElementRef, Input, OnChanges } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ElementRef, Input, OnChanges, ViewChild } from '@angular/core';
 import { Store }                             from '@ngrx/store';
 
 import { seriesState, seriesStateActions }   from '../../_core/store/series.actions';
@@ -50,10 +50,8 @@ export class ChartsComponent implements OnInit {
 
   constructor(
     private store: Store<seriesState | filtersState>,
-    private seriesService: SeriesService,
+    private seriesService: SeriesService
   ) { 
-    this.widthC = this.width - this.margin.left - this.margin.right;
-    this.heightC = this.height - this.margin.top - this.margin.bottom;
     
 
     this.filtersState$ = this.store.select('filters');
@@ -67,6 +65,11 @@ export class ChartsComponent implements OnInit {
   }
 
   setCharts(charts) {
+    
+    this.widthC = this.width - this.margin.left - this.margin.right;
+    this.heightC = this.height - this.margin.top - this.margin.bottom;
+    
+
     this.charts = charts;
     d3.select('#stacked-line-chart').selectAll("*").remove();
     if(this.charts.length === 0) return
@@ -79,7 +82,7 @@ export class ChartsComponent implements OnInit {
     this.drawAxisY();
 
     this.drawLine();
-
+    this.dropShadow();
   }
 
 
@@ -163,6 +166,7 @@ export class ChartsComponent implements OnInit {
               .attr('stroke-width', '1.5px')
               .attr('transform', 'translate(0,' + (this.heightC - this.subHeightC * (i + 1 )  ) + ')')
               .attr('d', line)
+              .style('filter', function() { return  'url(#drop-shadow)'; })
               .style('opacity', 1)
               .on('mouseover', (dd, ii, ee) => this.mouseOverLineIn(dd, ii, ee))
               .on('mouseout', (dd, ii, ee) => this.mouseOverLineOut(dd, ii, ee))
@@ -230,19 +234,19 @@ export class ChartsComponent implements OnInit {
       .style('opacity', 1)
       .style('display', 'block')
       .style('position', 'absolute')
+      .style('filter', function() { return  'url(#drop-shadow)'; })
       .style('left', `${( leftMargin )}px`);
 
     this.valuesTooltip.date = d.date;
     this.valuesTooltip.data = [];
     let lineCount = 0;
     this.charts.forEach((chart, cId) => {
+      const values = chart.data.find(data => data.date === d.date).values;
       chart.legend.forEach((legend, lId) => {
-        this.valuesTooltip.data.push({id: cId.toString() + '-' + lId.toString(), color: chart.colors[lId], legend: chart.title + ' - ' + legend, value: Math.round(d.values[lId]*100)/100 })
+        this.valuesTooltip.data.push({id: cId.toString() + '-' + lId.toString(), color: chart.colors[lId], legend: chart.title + ' - ' + legend, value: Math.round(values[lId]*100)/100 })
         lineCount++;
       })
     });
-    debugger
-
   }
 
   hideTooltip(d, i, e, id){
@@ -266,6 +270,56 @@ export class ChartsComponent implements OnInit {
     this.svg.selectAll('.time.line').each((dd, ii, ee) => {
          d3.selectAll(ee).style("opacity", opacity);
     })
+  }
+
+  dropShadow() {
+    let defs = this.svg.append('defs');
+    let stdDeviation = 8;
+
+    // create filter with id #drop-shadow
+    // height=130% so that the shadow is not clipped
+    // filterUnits=userSpaceOnUse so that straight lines are also visible
+    let filter = defs.append('filter')
+        .attr('id', 'drop-shadow')
+        .attr('height', '130%')
+        .attr('filterUnits', 'userSpaceOnUse');
+
+    // SourceAlpha refers to opacity of graphic that this filter will be applied to
+    // convolve that with a Gaussian with stdDeviation (3px) and store result
+    // in blur
+    filter.append('feGaussianBlur')
+        .attr('in', 'SourceAlpha')
+        .attr('stdDeviation', stdDeviation)
+        .attr('result', 'blur');
+
+    // translate output of Gaussian blur to the right and downwards with stdDeviation
+    // store result in offsetBlur
+    filter.append('feOffset')
+        .attr('in', 'blur')
+        .attr('dx', 1)
+        .attr('dy', 1)
+        .attr('result', 'offsetBlur');
+
+        filter.append('feFlood')
+    .attr('in', 'offsetBlur')
+    .attr('flood-color', '#18181c')
+    .attr('flood-opacity', '0.2')
+    .attr('result', 'offsetColor');
+
+    filter.append('feComposite')
+    .attr('in', 'offsetColor')
+    .attr('in2', 'offsetBlur')
+    .attr('operator', 'in')
+    .attr('result', 'offsetBlur');
+
+    // overlay original SourceGraphic over translated blurred opacity by using
+    // feMerge filter. Order of specifying inputs is important!
+    let feMerge = filter.append('feMerge');
+
+    feMerge.append('feMergeNode')
+        .attr('in', 'offsetBlur');
+    feMerge.append('feMergeNode')
+        .attr('in', 'SourceGraphic');
   }
 
 }
