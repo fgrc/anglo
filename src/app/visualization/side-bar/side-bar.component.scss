@@ -1,9 +1,11 @@
+
 $main-blue: #084E8A;
 $main-blue-hover: #023969;
 $border-color: #a0aec9;
 $border-line: #dfe3e8;
 
 .side-bar{
+    
     background-color: #f9f9f9;
     background: linear-gradient(45deg, #f9f9f9, #ffffff);
     border: 1px solid $border-color;
@@ -59,8 +61,45 @@ $border-line: #dfe3e8;
         font-size: small;
         font-weight: 600;
         text-transform: uppercase;
+
     }
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    ::-webkit-scrollbar {
+    width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
+  
+
+  .card-options {
+    height: 20px;
+    margin-bottom: 10px;
+  }
+  .serie-title {
+    color: #022d77;
+    float: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: small;
+  }
+
+  .serie-option {
+    float: right;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: small;
+  }
 }
+
 
  .form-check-label{
     color: #353535;

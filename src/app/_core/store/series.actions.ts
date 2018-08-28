@@ -30,7 +30,7 @@ export interface seriesState {
         locations : {title: string, value: boolean} [],
         scenarios : {title: string, value: boolean} [] 
     } [];
-    legend: string [];
+    legend: {text: string, active: boolean, color: string} [];
     crossfilters : {
         title      : string;
         serieId    : number;
@@ -63,10 +63,10 @@ export function seriesReducer(state: seriesState = seriesInitialState, action: A
             return Object.assign({}, state, { series: action.payload }) as seriesState;
         case seriesStateActions.setCharts:
             return Object.assign({}, state, { charts: action.payload }) as seriesState;
-        case seriesStateActions.setLegend:
-            return Object.assign({}, state, { legend: action.payload }) as seriesState;
         case seriesStateActions.setCrossfilters:
             return Object.assign({}, state, { crossfilters: action.payload }) as seriesState;
+        case seriesStateActions.setLegend:
+            return Object.assign({}, state, { legend: action.payload }) as seriesState;
         default:
             return Object.assign({}, state)
     }

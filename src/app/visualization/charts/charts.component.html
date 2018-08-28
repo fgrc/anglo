@@ -1,4 +1,20 @@
-<div id="stacked-line-chart" ></div>
+<div class="tooltip table-sm">
+    <h6 class="legend-title">{{ valuesTooltip.title }} - {{ valuesTooltip.date }}</h6>
+    <div class="table" style="width: 100%" align="center">
+        <tr>
+            <th class="legend-title">N°</th>
+            <th class="legend-title">Color</th>
+            <th class="legend-title">Legend</th>
+            <th class="legend-title">Value</th>
+        </tr>
+        <tr *ngFor = "let data of valuesTooltip.data">
+            <td class="legend-body">{{ data.id }}</td>
+            <td class="legend-body text-center"> <div class="legend-color" [ngStyle]="{'background-color': data.color}"></div> </td>
+            <td class="legend-body">{{ data.legend }}</td>
+            <td class="legend-body">{{ data.value }}</td>
+        </tr>
+    </div>
+</div>
+<div #stackedlinechart id="stacked-line-chart"></div>
 
 
-{{ data }}
