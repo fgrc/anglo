@@ -1,0 +1,14 @@
+.authNavCol {
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 15px;
+  text-align: center;
+  background-color: white;
+}
+.authNavTitle{
+  cursor: pointer;
+  color: black;
+}
+.authNavGoBtn {
+  margin-top: 10px;
+}

@@ -85,4 +85,35 @@ b.icon {
       padding: 0;
       width: auto;
   }
+.tooltip {
+  display: none;
+  width: 380px;
+  transform: translateX(-190px);
+  opacity: 0;
+  background: rgba(244, 244, 244, 0.6);
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(45deg, rgba(244, 244, 244, 0.85), rgba(255, 255, 255, 0.95));
+  background: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.85), rgba(244, 244, 244, 0.95));
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.85), rgba(244, 244, 244, 0.95));
+  padding: 4px;
+  padding-top: 8px;
+  border-radius: 2px;
+  border: 1px solid rgb(210, 210, 210);
+  box-shadow: 1px 1px 20px rgba(210, 210, 210, 0.6);  
+  color: black;
+}
+
+.dot-times{
+    z-index: 10;
+}
+
+.text-no-data{
+    text-align: center;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #022d77;
+    margin-top: 24px;
+    position: absolute;
+}
 }

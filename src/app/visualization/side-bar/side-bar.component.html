@@ -1,5 +1,8 @@
-<div class="side-bar">
-    <h4 class="title">{{ Title }}</h4>
+
+<div [@toggleSidebar]="sidebarState" class="side-bar animatedBlock">
+
+    <h4 class="title">{{ Title }}</h4><br>
+
     <div class="container-time-scale">
         <span class="sub-title">Time-Scale:</span>
         <div class="btn-group btn-block" dropdown>
@@ -27,7 +30,9 @@
     </div>
   </div>-->
 
-    <div class="card mb-1" *ngFor="let serie of series; index as serieIndex;">
+
+    <div [@fadeIn] class="card mb-1 addedBox" *ngFor="let serie of series; index as serieIndex;">
+
         <div class="card-body">
             <div class="card-options">
                 <span class="serie-title first">{{ serie.title }}</span>
