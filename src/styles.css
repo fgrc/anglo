@@ -65,3 +65,12 @@ body {
 .dot-times{
     z-index: 10;
 }
+
+.text-no-data{
+    text-align: center;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #022d77;
+    margin-top: 24px;
+}
