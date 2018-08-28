@@ -1,6 +1,15 @@
+a { color: #47C1BF; }
+a:hover { color: #084E8A; }
 .nav{
-    border-bottom: 1px solid rgba(2, 45, 119, 0.2);
-    
+    border-bottom: 1px solid #dadfe9;
+    font-size: 1rem;
+    justify-content: center;
+    padding: 10px 0 0;
+}
+
+.nav-link.disabled {
+	color:#dfe3e8;
+	cursor:not-allowed;
 }
 
 .nav-item{

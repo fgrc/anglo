@@ -1,34 +1,30 @@
+$main-blue: #084E8A;
+$main-blue-hover: #023969;
+$border-color: #a0aec9;
+$border-line: #dfe3e8;
+
 .side-bar{
-   -webkit-box-flex: 2;
-    -ms-flex: 2;
-    flex: 2;
-    border-radius: 3px;
     background-color: #f9f9f9;
     background: linear-gradient(45deg, #f9f9f9, #ffffff);
-    box-shadow: 0 0 1px #012a77;
-    // box-shadow: 1px 1px 15px rgba(234, 234, 234, 0.7);
-    margin-left: 0px;
-    margin-bottom: 10px;
-    height: calc(100vh - 100px);
-    padding: 20px 10px;
+    border: 1px solid $border-color;
+    margin-bottom: 1em;
+    padding: 20px 15px 15px;
 
     .title{
-        font-size: larger;
+        color: $main-blue;
+        border-bottom: 1px solid $border-line;
+        font-size: 1rem;
         font-weight: 600;
-        color: #022d77;
-        border-bottom: 1px solid rgba(2, 45, 119, 0.2);
+        margin-bottom: 1em;
+        padding-bottom: 5px;
+        text-align: center;
+        text-transform: uppercase;
     }
 
     .container-time-scale{
         margin-bottom: 10px;
         padding-bottom: 10px;
-        border-bottom: 1px solid rgba(2, 45, 119, 0.2);
-        .sub-title{
-                font-weight: 600;
-                text-transform: uppercase;
-                font-size: small;
-                color: #022d77;
-        }
+        border-bottom: 1px solid $border-line;
     }
 
     .toggle-btn{
@@ -42,20 +38,25 @@
     }
 
     .card-options{
-        height: 20px;
-        margin-bottom: 10px;
-    
+        display: block;    
+        margin-bottom: 1em;
     }
-    .serie-title{
-        color: #022d77;
-        float: left;
+    .serie-title, .sub-title {
+        color: $main-blue;
+        display: block;
+        font-size: small;
         font-weight: 600;
         text-transform: uppercase;
-        font-size: small;
+        margin-bottom: 3px;
     }
-
+    .serie-title.first {
+        background: rgba(102, 51, 153, 0.2);
+        margin: -1rem -1rem 1rem;
+        padding: .75em;
+        border-left: 4px solid rebeccapurple;
+        border-radius: .2rem .2rem 0 0;
+    }
     .serie-option{
-        float: right;
         font-weight: 600;
         text-transform: uppercase;
         font-size: small;
@@ -63,12 +64,34 @@
 }
 
  .form-check-label{
-        font-weight: 500;
-        text-transform: uppercase;
-        font-size: x-small;
-        color: #353535;
-    }
-.form-check-input{
-    margin-top: 0rem;
+    font-size: .9rem;
+    color: #353535;
+    line-height: 2.2;
+    margin-left: .6rem;
 }
-    
+.form-check-input{
+    margin-left: -1.75rem;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.show>.btn-primary.dropdown-toggle {
+    background-color: $main-blue-hover;
+}
+.dropdown-menu {
+    width: 100%;
+}
+.dropdown-item:focus, .dropdown-item:hover {
+    background-color: #dfe3e8;
+}
+.card-body {
+    padding: 1rem;
+}
+
+.btn-primary {
+    background-color: $main-blue;
+    border-color: $main-blue;
+    &.active, &:hover {
+        background-color: $main-blue-hover;
+    }
+}
