@@ -57,6 +57,13 @@ b.icon {
 .btn-default:hover {
   background-color: #c9d2dc;
 }
+.btn-info {
+  background-color: #20a763;
+  border: 1px solid #20a763;
+}
+.btn-info:hover {
+  background-color: #169455;  
+}
 .main-container {
   padding: 0;
 }

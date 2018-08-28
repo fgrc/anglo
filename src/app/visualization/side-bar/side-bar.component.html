@@ -31,8 +31,8 @@
         <div class="card-body">
             <div class="card-options">
                 <span class="serie-title first">{{ serie.title }}</span>
-                <span class="serie-option pl-1"> &times;</span>
-                <span class="mb-2 serie-option pl-1" *ngFor="let opt of serie.visible; index as i;" [ngClass]="{'text-muted': !opt.value }">
+                <span class="serie-option"> &times;</span>
+                <span class="serie-option" *ngFor="let opt of serie.visible; index as i;" [ngClass]="{'text-muted': !opt.value }">
          {{ opt.title }}
                 </span>
             </div>

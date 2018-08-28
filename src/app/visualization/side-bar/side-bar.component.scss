@@ -38,7 +38,8 @@ $border-line: #dfe3e8;
 
     .card-options{
         display: block;    
-        margin-bottom: 1em;
+        margin-bottom: .75em;
+        text-align: right;
     }
     .serie-title, .sub-title {
         color: $main-blue;
@@ -52,14 +53,27 @@ $border-line: #dfe3e8;
         background: rgba(102, 51, 153, 0.2);
         border-left: 4px solid rebeccapurple;
         border-radius: .2rem .2rem 0 0;
-        margin: -1rem -1rem 1rem;
+        margin: -1rem -1rem .75rem;
         padding: .75em;
+        text-align: left;
     }
     .serie-option{
+        border: 1px solid;
+        border-radius: .25em;
+        color: $main-blue;
+        cursor: pointer;
+        display: inline-block;
         font-size: small;
-        font-weight: 600;
+        margin-left: .5em;
+        min-width: 25px;
+        min-height: 25px;
+        padding: .25em .5em;
+        text-align: center;
         text-transform: uppercase;
     }
+}
+.text-muted {
+    color: #a0aec9!important;
 }
 
  .form-check-label{

@@ -21,12 +21,53 @@
     display: inline-block;
     margin-right: 8px;
 }
-.l1 {
-    background-color: #663399;
+.tph {
+    background-color: rgba(80, 36, 143, 0.2);
+    border-color: #50248F;
 }
-.l2 {
+.tph-l-real {
+    background-color: #230051;
+}
+.tph-real {
+    stroke: #230051;
+}
+.tph-l-budget {
+    background-color: #9C6ADE;    
+}
+.tph-budget {
+    stroke: #9C6ADE;
+}
+.tph-l-prediction {
+    background-color: #ccc9d0;        
+}
+.tph-prediction {
+    stroke: #ccc9d0;    
+}
+
+.concentrado {
+    background-color: rgba(71, 193, 191, 0.2);
+    border-color: #47C1BF;
+}
+.concentrado-l-real {
+    background-color: #003135;
+}
+.concentrado-real {
+    stroke: #003135;
+}
+.concentrado-l-budget {
     background-color: #47C1BF;
 }
-.l3 {
-    background-color: #F49342;
+.concentrado-budget {
+    stroke: #47C1BF;
+}
+.concentrado-l-prediction {
+    background-color: #b4cccc;
+}
+.concentrado-prediction {
+    stroke: #b4cccc;
+}
+
+.recuperacion {
+    background-color: rgba(244, 147, 66, 0.2);
+    border-color: #F49342;
 }
