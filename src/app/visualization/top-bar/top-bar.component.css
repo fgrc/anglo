@@ -1,5 +1,6 @@
 a { color: #47C1BF; }
 a:hover { color: #084E8A; }
+
 .nav{
     border-bottom: 1px solid #dadfe9;
     font-size: 1rem;
@@ -13,8 +14,8 @@ a:hover { color: #084E8A; }
 }
 
 .nav-item{
+    color: #022d77;
+    font-size: small;
     font-weight: 600;
     text-transform: uppercase;
-    font-size: small;
-    color: #022d77;
 }
