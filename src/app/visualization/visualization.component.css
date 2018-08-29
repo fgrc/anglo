@@ -35,9 +35,10 @@ legend {
   .sidebar-container {
     /* flex: 1 0 auto; if this is used, siblings can't adapt to the width in case of the element width changing (animation hide sidebar)*/
     max-width: 300px;
-    padding-left: 0;
-    /* width: 300px; same as above with flex, if you want the width to change you should change the child elements width, not the container */
     /* this container is handled with bootstrap 4 col, meaning it adapts to the content width */
+    /* width: 300px; same as above with flex, if you want the width to change you should operate only with childerns widths */
+    padding-left: 0;
+
   }
   .content-container {
     /*flex: 3 0 auto;  animations breaks with "width" and "flex"
