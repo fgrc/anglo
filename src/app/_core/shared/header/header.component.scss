@@ -2,11 +2,10 @@
   background-color: white;
 }
 .navbar {
-    height: 60px;
-    display: flex;
     align-items: center;
+    display: flex;
+    height: 60px;
     justify-content: center;
-    margin-bottom: 10px;
     a {
       z-index: 1;
     //  margin-left: 20px;
@@ -24,19 +23,21 @@ div.title-wrapper {
   // position: absolute;
   // float: left;
   display: none;
-  width: 100vw;
+  margin-bottom:5px;
   text-align: center;
+  width: 100vw;
   h3 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     margin: 10px 0 5px;
     color: rgba(1, 42, 119, 1);
   }
-  margin-bottom:5px;
 }
 
 .navbar-container {
-  box-shadow: 0 0 1px rgba(1, 42, 119, 1);
+  border-bottom: 1px solid #a0aec9;
+  box-shadow: 2px 2px 3px 0px rgba(160, 174, 201, 0.3);
+  margin-bottom: 1em;
 }
 
 @media only screen and (max-width: 768px) {

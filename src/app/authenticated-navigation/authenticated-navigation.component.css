@@ -1,20 +1,27 @@
 .authNavCol {
   background-color: white;
   border: 1px solid #a0aec9;
-  border-radius: .25em;
-  margin: 1rem;
-  padding: 15px 20px;
+  border-radius: 0 1em;
+  box-shadow: 2px 2px 3px 0px rgba(160, 174, 201, 0.3);
+  margin: 1.5em;
+  padding: 1.5em 2em;
 }
 .authNavCol  h1 {
 	color: #084E8A;
 	font-size: 2rem;
 	text-align: center;
 }
+.authNavCol hr {
+	margin-bottom: 1.4em;
+	margin-top: 0;
+    border-top: 4px solid rgb(223, 227, 232);
+    width: 40%;
+}
 .authNavText {
 	color: #4c525a;
 	font-size: 1rem;
 	line-height: 1.5;
-	margin-bottom: 1rem;
+	margin-bottom: 1em;
 }
 .authNavTitle{
   cursor: pointer;

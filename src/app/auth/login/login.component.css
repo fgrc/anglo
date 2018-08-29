@@ -1,8 +1,11 @@
 mat-card {
+  border-radius: 0 1em;
   margin: auto;
   max-width: 450px;
 }
-
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 2px 2px 3px 0 rgba(160, 174, 201, .3);
+}
 mat-form-field,
 textarea {
   width: 100%;
@@ -13,6 +16,7 @@ mat-spinner{
 .mat-raised-button:not([class*=mat-elevation-z]) {
 	box-shadow: none;
 }
+
 .mat-raised-button{
 	background-color: #084E8A;
 	border-radius: .2rem;

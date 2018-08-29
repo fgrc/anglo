@@ -2,13 +2,42 @@
   position: relative;
 }
 .toggleSidebarBtn{
-  border: 1px solid;
-  border-radius: .25em;
-  color: #084E8A;
-  cursor: pointer;
-  padding: 2px 10px;
-  position: absolute;
-  right: 30px;
-  top: 8px;
-  z-index: 10;
+    background: #d34b5f;
+    box-shadow: 2px 2px 3px 0px rgba(160, 174, 201, 0.3);
+    color: #fff;
+    cursor: pointer;
+    font-size: small;
+    letter-spacing: -0.025em;
+    padding: 3px 10px 1px;
+    position: absolute;
+    left: 0;
+    top: 3px;
+    z-index: 10;
+}
+.toggleSidebarBtn:before {
+    background-color: inherit;
+    box-shadow: inherit;
+    content: "";
+    height: 100%;
+    transform: skewX(-25deg);
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    z-index: -1;
+}
+.toggleSidebarBtn:after {
+    background-color: inherit;
+    content: "";
+    height: 100%;
+    transform: skewX(25deg);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 20px;
+    z-index: -1;
+}
+
+.toggleSidebarBtn:hover {
+  background-color: #bb394c;
 }

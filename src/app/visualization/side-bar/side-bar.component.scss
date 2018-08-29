@@ -1,4 +1,4 @@
-
+$body-color: #dfe3e8;
 $main-blue: #084E8A;
 $main-blue-hover: #023969;
 $border-color: #a0aec9;
@@ -18,10 +18,13 @@ $border-line: #dfe3e8;
 .side-bar {
     background-color: #f9f9f9;
     background: linear-gradient(45deg, #f9f9f9, #ffffff);
+    box-shadow: 2px 2px 3px 0px rgba(160, 174, 201, 0.3);
     border: 1px solid $border-color;
     margin-bottom: 1em;
-    padding: 20px 15px 15px;
-
+    padding: 2em 1.5em 1.5em;
+    @media (min-width: 576px) {
+        width: 300px;
+    }
     .title {
         color: $main-blue;
         border-bottom: 1px solid $border-line;
@@ -94,6 +97,10 @@ $border-line: #dfe3e8;
         padding: .25em .5em;
         text-align: center;
         text-transform: uppercase;
+        &:hover {
+            background-color: $body-color;
+            color: $main-blue-hover;
+        }
 
     }
     padding-bottom: 10px;
