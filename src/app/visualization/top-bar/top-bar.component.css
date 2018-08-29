@@ -9,7 +9,7 @@ a:hover { color: #084E8A; }
 }
 
 .nav-link.disabled {
-	color:#dfe3e8;
+	color:#a0aec9;
 	cursor:not-allowed;
 }
 
