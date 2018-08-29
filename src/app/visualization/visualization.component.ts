@@ -43,8 +43,8 @@ export class VisualizationComponent implements OnInit, OnDestroy {
   private crossfilters$;
   private crossfilters;
 
-  public sidebarState:string;
-  public legendState:string;
+  public sidebarState:string='open';;
+  public legendState:string='open';;
 
   constructor(
     private filtersService: FiltersService,
