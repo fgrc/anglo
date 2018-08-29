@@ -5,7 +5,7 @@ import { AuthService } from "../auth.service";
 
 @Component({
   templateUrl:'./signup.component.html',
-  styleUrls:['./signup.component.css']
+  styleUrls:['./signup.component.scss']
 })
 export class SignupComponent implements OnInit,OnDestroy{
   isLoading=false;

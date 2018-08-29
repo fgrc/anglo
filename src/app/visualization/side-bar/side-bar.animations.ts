@@ -16,7 +16,21 @@ export const sidebarTransitions = [
     state('open',   style({
       display:'block'
     })),
-    transition('close => open', animate('1000ms ease-in')),
-    transition('open => close', animate('1000ms ease-out'))
+    transition('close => open', [
+      query(
+        ':enter .animation-ready-min-width',
+        animate('1s 0ms', style({ opacity: 1 })),
+        { optional: true }
+      ),
+      animate('1000ms')]
+    ),
+    transition('open => close', [
+      query(
+        ':leave .animation-ready-min-width',
+        animate('1s 0ms', style({ opacity: 0 })),
+        { optional: true }
+      ),
+      animate('1000ms')]
+    )
   ])
 ];

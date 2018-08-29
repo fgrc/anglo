@@ -4,7 +4,7 @@ import { NgForm } from "@angular/forms";
 @Component({
   selector: 'authenticated-navigation',
   templateUrl:'./authenticated-navigation.component.html',
-  styleUrls:['./authenticated-navigation.component.css']
+  styleUrls:['./authenticated-navigation.component.scss']
 })
 export class AuthenticatedNavigationComponent implements OnInit, OnDestroy{
 

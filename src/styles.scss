@@ -63,7 +63,7 @@ b.icon {
   border: 1px solid #20a763;
 }
 .btn-info:hover {
-  background-color: #169455;  
+  background-color: #169455;
 }
 .btn-primary {
     background-color: #084E8A;
@@ -90,7 +90,7 @@ b.icon {
   padding-top: 8px;
   border-radius: 2px;
   border: 1px solid rgb(210, 210, 210);
-  box-shadow: 1px 1px 20px rgba(210, 210, 210, 0.6);  
+  box-shadow: 1px 1px 20px rgba(210, 210, 210, 0.6);
   color: black;
 }
 
@@ -107,6 +107,9 @@ b.icon {
     margin-top: 24px;
     position: absolute;
 }
+/*
+please don't put style of single components here, every components has it's own style css and a html file
+if the style you want to write refeer to a class found in a component html, write the style in the component css
 
 @media (min-width: 576px) {
   .main-container {
@@ -124,3 +127,9 @@ b.icon {
       width: auto;
   }
 }
+for example .sidebar-container is found inside the visualization.html, anything related to .sidebar-container style
+should be found in visualization.css
+
+thanks for collaborating in keeping things neat and clean!
+*/
+

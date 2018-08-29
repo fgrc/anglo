@@ -20,7 +20,7 @@ import * as d3Axis from 'd3-axis';
 @Component({
   selector: 'charts',
   templateUrl: './charts.component.html',
-  styleUrls: ['./charts.component.css']
+  styleUrls: ['./charts.component.scss']
 })
 export class ChartsComponent implements OnInit {
 

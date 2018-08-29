@@ -12,16 +12,19 @@ import {
 import { seriesState, seriesInitialState } from "../_core/store/series.actions";
 
 import { SidebarService } from "./side-bar/side-bar.service";
+import { LegendService } from "./legend/legend.service";
 
 @Component({
   selector: "visualization",
 
   templateUrl: "./visualization.html",
 
-  styleUrls: ['./visualization.component.css']
+  styleUrls: ["./visualization.component.css"]
 })
 export class VisualizationComponent implements OnInit, OnDestroy {
-  private sidebarStateSub:Subscription;
+  private sidebarStateSub: Subscription;
+  private legendStateSub: Subscription;
+
   private filtersState$;
   private filtersState;
 
@@ -40,12 +43,14 @@ export class VisualizationComponent implements OnInit, OnDestroy {
   private crossfilters$;
   private crossfilters;
 
-  public sidebarState:string;
+  public sidebarState: string = "open";
+  public legendState: string = "open";
 
   constructor(
     private filtersService: FiltersService,
     private store: Store<filtersState>,
-    private sidebarService: SidebarService
+    private sidebarService: SidebarService,
+    private legendService: LegendService
   ) {
     // States
     this.filtersState$ = this.store.select("filters");
@@ -60,7 +65,14 @@ export class VisualizationComponent implements OnInit, OnDestroy {
   toggleSidebar(event) {
     let target = event.target || event.srcElement || event.currentTarget;
     this.sidebarService.toggleSidebarState();
-    target.innerHTML = this.sidebarState === "open" ? "Hide sidebar" : "Show sidebar";
+    target.innerHTML =
+      this.sidebarState === "open" ? "Hide sidebar" : "Show sidebar";
+  }
+  toggleLegend(event) {
+    let target = event.target || event.srcElement || event.currentTarget;
+    this.legendService.toggleLegendState();
+    target.innerHTML =
+      this.legendState === "open" ? "Hide legend" : "Show legend";
   }
   getDataChart = () => Math.random();
 
@@ -75,12 +87,19 @@ export class VisualizationComponent implements OnInit, OnDestroy {
     this.series$.subscribe(series => (this.series = series));
     this.charts$.subscribe(charts => (this.charts = charts));
 
-    this.sidebarStateSub=this.sidebarService.getSidebarStateStatusListener().subscribe(
-      changedSidebarState=>{
-        this.sidebarState=changedSidebarState?'open':'close';
+    this.sidebarStateSub = this.sidebarService
+      .getSidebarStateStatusListener()
+      .subscribe(changedSidebarState => {
+        this.sidebarState = changedSidebarState ? "open" : "close";
+      });
+    this.legendStateSub = this.legendService
+      .getLegendStateStatusListener()
+      .subscribe(changedLegendState => {
+        this.legendState = changedLegendState ? "open" : "close";
       });
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.sidebarStateSub.unsubscribe();
+    this.legendStateSub.unsubscribe();
   }
 }

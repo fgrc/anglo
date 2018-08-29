@@ -3,7 +3,7 @@
 
     <h4 class="title">{{ Title }}</h4>
 
-    <div class="container-time-scale">
+    <div class="container-time-scale animation-ready-min-width">
         <span class="sub-title">Time-Scale:</span>
         <div class="btn-group btn-block" dropdown>
             <button id="timeScaleDropDownButton" dropdownToggle type="button" class="btn btn-primary dropdown-toggle btn-sm btn-block" aria-controls="dropdown-basic">
@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="btn btn-info btn-sm btn-block mb-2" (click)="addNewSerie()">
+    <div class="btn btn-info btn-sm btn-block mb-2 animation-ready-min-width" (click)="addNewSerie()">
         Add<b class="icon">+</b>
     </div>
 
@@ -31,7 +31,7 @@
   </div>-->
 
 
-    <div [@fadeIn] class="card mb-1 addedBox" *ngFor="let serie of series; index as serieIndex;">
+    <div [@fadeIn] class="card mb-1 addedBox animation-ready-min-width" *ngFor="let serie of series; index as serieIndex;">
 
         <div class="card-body">
             <div class="card-options">

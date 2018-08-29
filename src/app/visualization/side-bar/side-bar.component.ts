@@ -56,7 +56,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
 
   private timeScaleDropDownButtonTittle: string = 'Days';
-  public sidebarState:string;
+  public sidebarState:string='open';
   constructor(
     private store: Store<seriesState | filtersState>,
     private seriesService: SeriesService,
