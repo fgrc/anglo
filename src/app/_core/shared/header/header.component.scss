@@ -1,3 +1,5 @@
+@import '~variables.scss';
+
 .navbar-be{
   background-color: white;
 }
@@ -35,8 +37,8 @@ div.title-wrapper {
 }
 
 .navbar-container {
-  border-bottom: 1px solid #a0aec9;
-  box-shadow: 2px 2px 3px 0px rgba(160, 174, 201, 0.3);
+  border-bottom: 1px solid $border-color;
+  box-shadow: $box-shadow;
   margin-bottom: 1em;
 }
 
