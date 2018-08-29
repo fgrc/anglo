@@ -90,11 +90,11 @@ $border-line: #dfe3e8;
         color: $main-blue;
         cursor: pointer;
         display: inline-block;
-        font-size: small;
+        font-size: .7rem;
         margin-left: .5em;
         min-width: 25px;
         min-height: 25px;
-        padding: .25em .5em;
+        padding: .3em .5em 0;
         text-align: center;
         text-transform: uppercase;
         &:hover {
