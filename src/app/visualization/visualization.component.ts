@@ -12,6 +12,7 @@ import {
 import { seriesState, seriesInitialState } from "../_core/store/series.actions";
 
 import { SidebarService } from "./side-bar/side-bar.service";
+import { LegendService } from "./legend/legend.service";
 
 @Component({
   selector: "visualization",
@@ -22,6 +23,8 @@ import { SidebarService } from "./side-bar/side-bar.service";
 })
 export class VisualizationComponent implements OnInit, OnDestroy {
   private sidebarStateSub:Subscription;
+  private legendStateSub:Subscription;
+
   private filtersState$;
   private filtersState;
 
@@ -41,11 +44,13 @@ export class VisualizationComponent implements OnInit, OnDestroy {
   private crossfilters;
 
   public sidebarState:string;
+  public legendState:string;
 
   constructor(
     private filtersService: FiltersService,
     private store: Store<filtersState>,
-    private sidebarService: SidebarService
+    private sidebarService: SidebarService,
+    private legendService: LegendService
   ) {
     // States
     this.filtersState$ = this.store.select("filters");
@@ -61,6 +66,11 @@ export class VisualizationComponent implements OnInit, OnDestroy {
     let target = event.target || event.srcElement || event.currentTarget;
     this.sidebarService.toggleSidebarState();
     target.innerHTML = this.sidebarState === "open" ? "Hide sidebar" : "Show sidebar";
+  }
+  toggleLegend(event) {
+    let target = event.target || event.srcElement || event.currentTarget;
+    this.legendService.toggleLegendState();
+    target.innerHTML = this.legendState === "open" ? "Hide legend" : "Show legend";
   }
   getDataChart = () => Math.random();
 
@@ -79,8 +89,13 @@ export class VisualizationComponent implements OnInit, OnDestroy {
       changedSidebarState=>{
         this.sidebarState=changedSidebarState?'open':'close';
       });
+    this.legendStateSub=this.legendService.getLegendStateStatusListener().subscribe(
+      changedLegendState=>{
+        this.legendState=changedLegendState?'open':'close';
+      });
   }
   ngOnDestroy(){
     this.sidebarStateSub.unsubscribe();
+    this.legendStateSub.unsubscribe();
   }
 }

@@ -1,6 +1,9 @@
-<span class="legend-title" *ngIf = "legend.length > 0"> Legenda </span>
-<ul class="list-group">
-  <li *ngFor = "let l of legend; index as i; trackBy: trackByFn" class="list-group-item">
-    <div class="legend-color" [ngStyle]="{'background-color': l.color}"></div> {{ l.text }}</li>
-</ul>
+<span [@toggleLegend]="legendState" class="legend-wrapper">
+  <span class="legend-title" *ngIf = "legend.length > 0"> Legenda </span>
+  <ul class="list-group">
+    <li *ngFor = "let l of legend; index as i; trackBy: trackByFn" class="list-group-item">
+      <div class="legend-color" [ngStyle]="{'background-color': l.color}"></div> {{ l.text }}</li>
+  </ul>
+</span>
+
 
