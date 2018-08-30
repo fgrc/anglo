@@ -33,6 +33,17 @@ export const routerTransition = trigger("routerTransition", [
         { optional: true }
       )
     ]),
+    query(
+      ":enter .animatedBlock.verticalEaseIn",
+      stagger(400, [
+        style({ transform: "translateY(100px)" }),
+        animate(
+          "1s ease-in-out",
+          style({ transform: "translateY(0px)", opacity: 1 })
+        )
+      ]),
+      { optional: true }
+    ),
     group([
       query(
         ":enter .animatedBlock.leftToRight",
@@ -45,7 +56,8 @@ export const routerTransition = trigger("routerTransition", [
             style({ transform: "translateX(-25px)", opacity: 0.75 }),
             style({ transform: "translateX(0px)", opacity: 1 })
           ])
-        )
+        ),
+        { optional: true }
       ),
       query(
         ":enter .animatedBlock.rightToLeft",
@@ -58,7 +70,8 @@ export const routerTransition = trigger("routerTransition", [
             style({ transform: "translateX(25px)", opacity: 0.75 }),
             style({ transform: "translateX(0px)", opacity: 1 })
           ])
-        )
+        ),
+        { optional: true }
       )
     ])
   ])

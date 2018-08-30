@@ -70,7 +70,8 @@
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
           <li *ngFor="let location of serie.locations; index as locationIndex;" role="menuitem">
             <a class="dropdown-item" (click)="triggerLocationDropDown(location.title, locationIndex, serieIndex)">{{ location.title
-              }}</a>
+              }}
+            </a>
           </li>
         </ul>
       </div>
