@@ -1,27 +1,27 @@
-
 <div [@toggleSidebar]="sidebarState" class="side-bar animatedBlock">
 
-    <h4 class="title">{{ Title }}</h4>
+  <h4 class="title">{{ Title }}</h4>
 
-    <div class="container-time-scale animation-ready-min-width">
-        <span class="sub-title">Time-Scale:</span>
-        <div class="btn-group btn-block" dropdown>
-            <button id="timeScaleDropDownButton" dropdownToggle type="button" class="btn btn-primary dropdown-toggle btn-sm btn-block" aria-controls="dropdown-basic">
-    {{ timeScaleDropDownButtonTittle }} <span class="caret"></span>
-            </button>
-            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-                <li *ngFor="let timeScale of timeScales; index as i;" role="menuitem">
-                    <a class="dropdown-item" (click)="triggerDropDownTimeScale(timeScale)">{{ timeScale }}</a>
-                </li>
-            </ul>
-        </div>
+  <div class="container-time-scale animation-ready-min-width">
+    <span class="sub-title">Time-Scale:</span>
+    <div class="btn-group btn-block" dropdown>
+      <button id="timeScaleDropDownButton" dropdownToggle type="button" class="btn btn-primary dropdown-toggle btn-sm btn-block"
+        aria-controls="dropdown-basic">
+        {{ timeScaleDropDownButtonTittle }} <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+        <li *ngFor="let timeScale of timeScales; index as i;" role="menuitem">
+          <a class="dropdown-item" (click)="triggerDropDownTimeScale(timeScale)">{{ timeScale }}</a>
+        </li>
+      </ul>
     </div>
+  </div>
 
-    <div class="btn btn-info btn-sm btn-block mb-2 animation-ready-min-width" (click)="addNewSerie()">
-        Add<b class="icon">+</b>
-    </div>
+  <div class="btn btn-info btn-sm btn-block mb-2 animation-ready-min-width" (click)="addNewSerie()">
+    Add<b class="icon">+</b>
+  </div>
 
-    <!--<div class="toggle-btn">
+  <!--<div class="toggle-btn">
     <div class="btn btn-secondary btn-size btn-sm mr-1" (click)>
       Add
     </div>
@@ -31,55 +31,60 @@
   </div>-->
 
 
-    <div [@fadeIn] class="card mb-1 addedBox animation-ready-min-width" *ngFor="let serie of series; index as serieIndex;">
+  <div [@fadeIn] class="card mb-1 addedBox animation-ready-min-width" *ngFor="let serie of series; index as serieIndex;">
 
-        <div class="card-body">
-            <div class="card-options">
-                <span class="serie-title first {{ serie.title }}">{{ serie.title }}</span>
-                <span class="serie-option"> &times;</span>
-                <span class="serie-option" *ngFor="let opt of serie.visible; index as i;" [ngClass]="{'text-muted': !opt.value }">
-         {{ opt.title }}
-                </span>
-            </div>
-            <!--<input [(ngModel)]="serie.where.selected" [typeahead]="serie.where.options" typeaheadOptionField="title" class="form-control">-->
+    <div class="card-body">
+      <div class="card-options">
+        <span class="serie-title first {{ serie.title }}">{{ serie.title }}</span>
+        <span class="serie-option"> &times;</span>
+        <span class="serie-option" *ngFor="let opt of serie.visible; index as i;" [ngClass]="{'text-muted': !opt.value }">
+          {{ opt.title }}
+        </span>
+      </div>
+      <!--<input [(ngModel)]="serie.where.selected" [typeahead]="serie.where.options" typeaheadOptionField="title" class="form-control">-->
 
-            <span class="serie-title">Mesaure:</span>
-            <!--<span class="serie-option pl-1" *ngFor="let opt of serie.options; index as i;" [ngClass]="{'text-muted': !opt.value }">
+      <span class="serie-title">Mesaure:</span>
+      <!--<span class="serie-option pl-1" *ngFor="let opt of serie.options; index as i;" [ngClass]="{'text-muted': !opt.value }">
       {{ opt.title }}
     </span>-->
 
-            <div class="btn-group btn-block mb-3" dropdown>
-                <button id="measureDropDownButton" dropdownToggle type="button" class="btn btn-default dropdown-toggle btn-block btn-sm" aria-controls="dropdown-basic">
-    {{serie.title || 'Select' }} <span class="caret"></span>
-                </button>
-                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-                    <li *ngFor="let measure of serie.measure; index as i;" role="menuitem">
-                        <a class="dropdown-item" (click)="triggerMeasureDropDown(measure.title, serieIndex)">{{ measure.title }}</a>
-                    </li>
-                </ul>
-            </div>
+      <div class="btn-group btn-block mb-3" dropdown>
+        <button id="measureDropDownButton" dropdownToggle type="button" class="btn btn-default dropdown-toggle btn-block btn-sm"
+          aria-controls="dropdown-basic">
+          {{serie.title || 'Select' }} <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li *ngFor="let measure of serie.measure; index as i;" role="menuitem">
+            <a class="dropdown-item" (click)="triggerMeasureDropDown(measure.title, serieIndex)">{{ measure.title }}</a>
+          </li>
+        </ul>
+      </div>
 
-            <span class="serie-title"> Location: </span>
+      <span class="serie-title"> Location: </span>
 
-            <div class="btn-group btn-block mb-3" dropdown>
-                <button id="locationDropDownButton" dropdownToggle type="button" class="btn btn-default dropdown-toggle btn-block btn-sm" aria-controls="dropdown-basic">
-    {{ titleLocationDropDownButton(serieIndex) }} <span class="caret"></span>
-                </button>
-                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-                    <li *ngFor="let location of serie.locations; index as locationIndex;" role="menuitem">
-                        <a class="dropdown-item" (click)="triggerLocationDropDown(location.title, locationIndex, serieIndex)">{{ location.title }}</a>
-                    </li>
-                </ul>
-            </div>
+      <div class="btn-group btn-block mb-3" dropdown>
+        <button id="locationDropDownButton" dropdownToggle type="button" class="btn btn-default dropdown-toggle btn-block btn-sm"
+          aria-controls="dropdown-basic">
+          {{ titleLocationDropDownButton(serieIndex) }} <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li *ngFor="let location of serie.locations; index as locationIndex;" role="menuitem">
+            <a class="dropdown-item" (click)="triggerLocationDropDown(location.title, locationIndex, serieIndex)">{{ location.title
+              }}
+            </a>
+          </li>
+        </ul>
+      </div>
 
-            <span class="serie-title">Scenarios: </span>
-            <div class="container-scenarios">
-              <div class="form-check" *ngFor="let scenario of serie.scenarios; index as scenerarioIndex; trackBy: trackByFn">
-                <label class="form-check-label" >
-                  <input type="checkbox" class="form-check-input" [attr.checked] = "scenario.value ? 'checked' : null" (click) = "toggleScenariosCheckBox(scenario.title,scenerarioIndex, serieIndex)">{{ scenario.title }}
-                </label>
-                </div>
-            </div>
+      <span class="serie-title">Scenarios: </span>
+      <div class="container-scenarios">
+        <div class="form-check" *ngFor="let scenario of serie.scenarios; index as scenerarioIndex; trackBy: trackByFn">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" [attr.checked]="scenario.value ? 'checked' : null" (click)="toggleScenariosCheckBox(scenario.title,scenerarioIndex, serieIndex)">{{
+            scenario.title }}
+          </label>
         </div>
-
+      </div>
     </div>
+
+  </div>
