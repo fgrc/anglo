@@ -1,13 +1,15 @@
+@import '~variables.scss';
+
 .authNavCol {
   background-color: white;
-  border: 1px solid #a0aec9;
+  border: 1px solid $border-color;
   border-radius: 0 1em;
-  box-shadow: 2px 2px 3px 0px rgba(160, 174, 201, 0.3);
+  box-shadow: $box-shadow;
   margin: 1.5em;
   padding: 1.5em 2em;
 }
 .authNavCol  h1 {
-	color: #084E8A;
+	color: $main-blue;
 	font-size: 2rem;
 	text-align: center;
 }

@@ -1,7 +1,5 @@
-@import '~variables.scss';
-
 a { color: #2498fb; }
-a:hover { color: $main-blue-hover; }
+a:hover { color: #084E8A; }
 
 .nav{
     border-bottom: 1px solid #dadfe9;
@@ -11,8 +9,8 @@ a:hover { color: $main-blue-hover; }
 }
 
 .nav-link.disabled {
-	color: $border-color;
-	cursor: not-allowed;
+	color:#a0aec9;
+	cursor:not-allowed;
 }
 
 .nav-item{
