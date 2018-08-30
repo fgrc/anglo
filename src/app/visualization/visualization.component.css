@@ -52,13 +52,13 @@
   letter-spacing: -0.025em;
   padding: 3px 10px 1px;
   position: absolute;
-  right: 30px;
+  right: 45px;
   top: 10px;
   z-index: 10;
 
 }
 .toggleLegendBtn:hover {
-  background-color: #dfe3e8;
+  background-color: #f5f6f9;
   color: #023969;
 }
 legend {
@@ -72,11 +72,10 @@ legend {
   }
   .sidebar-container {
     max-width: 300px;
-    padding-left: 0;
+    padding: 0;
 
   }
   .content-container {
     margin: 0 auto;
-    padding-right: 0;
   }
 }

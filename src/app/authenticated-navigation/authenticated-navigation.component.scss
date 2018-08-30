@@ -8,16 +8,19 @@
   margin: 1.5em;
   padding: 1.5em 2em;
 }
-.authNavCol  h1 {
+.authNavCol h1 {
 	color: $main-blue;
 	font-size: 2rem;
 	text-align: center;
 }
+.authNavCol svg {
+  max-width: 40px;
+  vertical-align: text-bottom;
+}
 .authNavCol hr {
-	margin-bottom: 1.4em;
-	margin-top: 0;
-    border-top: 4px solid rgb(223, 227, 232);
-    width: 40%;
+  border-top: 1px solid rgb(223, 227, 232);
+	margin-bottom: 1.2em;
+	margin-top: 1em;
 }
 .authNavText {
 	color: #4c525a;
@@ -32,6 +35,15 @@
 .authNavGoBtn {
   margin-top: 10px;
   width: 100%;
+}
+
+.svg-stroke {
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-miterlimit:10;
 }
 
 @media (min-width: 767px) {

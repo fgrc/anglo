@@ -18,7 +18,7 @@
     margin-bottom: 1em;
     padding: 2em 1.5em 1.5em;
     @media (min-width: 576px) {
-        min-height: 310px;
+        height: 100%;
         max-height: calc(100vh - 87px);
         overflow-y: auto;
         width: 300px;
@@ -84,7 +84,7 @@
         text-align: center;
         text-transform: uppercase;
         &:hover {
-            background-color: $body-color;
+            background-color: #f5f6f9;
             color: $main-blue-hover;
         }
 
