@@ -123,7 +123,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
     let  dataSerie  = data.filter(d => d.Name === title );
 
-    const locations = dataSerie.filter((v, i, a) => a.findIndex(d => d.Location === v.Location) === i).map(d =>  { return {title: d.Location, value: false }});
+    const locations = dataSerie.filter((v, i, a) => a.findIndex(d => d.Location === v.Location) === i).map((d, j) =>  { return  (j === 0) ? {title: d.Location, value: true } : {title: d.Location, value: false } });
 
     const scenarios = dataSerie.filter((v, i, a) => a.findIndex(d => d.Scenario === v.Scenario) === i).map(d =>  { return (d.Scenario === 'Real') ? {title: d.Scenario, value: true } : {title: d.Scenario, value: false } });
 
@@ -137,6 +137,10 @@ export class SideBarComponent implements OnInit, OnDestroy {
     const crossfilter      = this.initAllValuesCrossfilters(title, serieIndex);
     // filter real values
     this.seriesService.filterScenarios(crossfilter.dimensions.find(d => d.title === 'scenario').dimension, ['Real']);
+    // filter first location value
+    this.seriesService.filterLocations(crossfilter.dimensions.find(d => d.title === 'location').dimension,  [locations[0].title] );
+    
+    
     // Group
     const groupByTime      = this.seriesService.initGroupBy(crossfilter.dimensions.find(d => d.title === 'time').dimension);
     crossfilter.groups.push({title: 'Time', scenario:'Real', location: 'all' ,group: groupByTime});
@@ -242,7 +246,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     // Create Dimension
     const timeDimension     = this.seriesService.initTimeDimension(crossfilter.data, this.timeScaleDropDownButtonTittle);
     const scenarioDimension = this.seriesService.initSceneraioDimension(crossfilter.data);
-    const locationDimension = this.seriesService.initSceneraioDimension(crossfilter.data);
+    const locationDimension = this.seriesService.initLocationDimesion(crossfilter.data);
     //Assign Values
     crossfilter.dimensions.push({ title: 'time', dimension: timeDimension });
     crossfilter.dimensions.push({ title: 'scenario', dimension: scenarioDimension });
@@ -263,6 +267,21 @@ export class SideBarComponent implements OnInit, OnDestroy {
     }).reverse();
     return new Chart(serieId, title, legendChart, data);
   }
+
+  removeSerie(serieIndex: number){
+    const filterIndex      = this.filters     .findIndex(d => d.serieId === serieIndex);
+    const chartIndex       = this.charts      .findIndex(d => d.serieId === serieIndex);
+    const crossfilterIndex = this.crossfilters.findIndex(d => d.serieId === serieIndex);
+    
+    if (filterIndex !== -1)      this.filters     .splice(filterIndex, 1);
+    if (crossfilterIndex !== -1) this.crossfilters.splice(crossfilterIndex, 1);
+    if (chartIndex !== -1)       this.charts      .splice(chartIndex, 1);  
+    if (serieIndex !== -1)       this.series      .splice(serieIndex, 1);
+    this.setCharts();
+    this.setFilters();
+    this.setSeries();
+    this.setCrossfilters();
+  }  
 
 
   setCharts       = () => this.seriesService.setCharts(this.charts);

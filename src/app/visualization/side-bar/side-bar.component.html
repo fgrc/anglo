@@ -36,7 +36,7 @@
         <div class="card-body">
             <div class="card-options">
                 <span class="serie-title first {{ serie.title }}">{{ serie.title }}</span>
-                <span class="serie-option"> &times;</span>
+                <span class="serie-option" (click) ="removeSerie(serieIndex)" > &times;</span>
                 <span class="serie-option" *ngFor="let opt of serie.visible; index as i;" [ngClass]="{'text-muted': !opt.value }">
          {{ opt.title }}
                 </span>
