@@ -166,6 +166,19 @@ export class ChartsComponent implements OnInit {
 
   }
 
+  closest (num, arr) {
+      var curr = arr[0];
+      var diff = Math.abs (num - curr);
+      for (var val = 0; val < arr.length; val++) {
+          var newdiff = Math.abs (num - arr[val]);
+          if (newdiff < diff) {
+              diff = newdiff;
+              curr = arr[val];
+          }
+      }
+      return curr;
+  }
+
  drawLine() {
       this.line = [];
       this.dots = [];
