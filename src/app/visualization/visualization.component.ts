@@ -46,6 +46,9 @@ export class VisualizationComponent implements OnInit, OnDestroy {
   public sidebarState: string = "open";
   public legendState: string = "open";
 
+  private firstValue$;
+  private firstValue;
+
   constructor(
     private filtersService: FiltersService,
     private store: Store<filtersState>,
@@ -60,6 +63,7 @@ export class VisualizationComponent implements OnInit, OnDestroy {
     this.charts$ = this.seriesState$.map(state => state.charts);
     this.series$ = this.seriesState$.map(state => state.series);
     this.crossfilters$ = this.seriesState$.map(state => state.crossfilters);
+    this.firstValue$ = this.seriesState$.map(state => state.firstValues);
   }
 
   toggleSidebar(event) {
@@ -84,6 +88,7 @@ export class VisualizationComponent implements OnInit, OnDestroy {
     this.crossfilters$.subscribe(
       crossfilters => (this.crossfilters = crossfilters)
     );
+    this.firstValue$.subscribe(firstValue => this.firstValue = firstValue);
     this.series$.subscribe(series => (this.series = series));
     this.charts$.subscribe(charts => (this.charts = charts));
 

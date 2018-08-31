@@ -184,7 +184,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
     // set Values
     this.setSeries();
-
+    this.seriesService.setFirstValues(false);
     this.setFilter({serieId: serieIndex, measure: title, locations: [locations[0].title], scenarios: ['real']});
     this.setFilters();
     this.setCrossfilters();

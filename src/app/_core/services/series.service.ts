@@ -21,6 +21,8 @@ export class SeriesService {
 
   // Store
 
+  setFirstValues = (firstValue: boolean) => this.store.dispatch({ type: seriesStateActions.setFirstValues, payload: firstValue });
+
   setCharts = (charts: any) => this.store.dispatch({ type: seriesStateActions.setCharts, payload: charts });
 
   setSeries = (series: any) => this.store.dispatch({ type: seriesStateActions.setSeries, payload: series });

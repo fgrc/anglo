@@ -39,6 +39,9 @@ export class LegendComponent implements OnInit, OnDestroy {
   private charts$;
   private charts;
 
+  private firstValue$;
+  private firstValue;
+
   public legendState: string = "open";
   constructor(
     private store: Store<seriesState | filtersState>,
@@ -49,6 +52,7 @@ export class LegendComponent implements OnInit, OnDestroy {
     this.seriesState$ = this.store.select("series");
 
     this.charts$ = this.seriesState$.map(state => state.charts);
+    this.firstValue$ = this.seriesState$.map(state => state.firstValues);
 
     this.legendStateSub = this.legendService
       .getLegendStateStatusListener()
@@ -58,20 +62,26 @@ export class LegendComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.firstValue$.subscribe(firstValue => this.firstValue = firstValue);
     this.charts$.subscribe(charts => this.setLegend(charts));
   }
 
   setLegend(charts) {
+
+    if (this.firstValue){
+      this.legend = [{text: 'Grade of copper - real', color: '#9C6ADE', active: false}];
+    }else{
     this.legend = [];
-    charts.forEach(chart => {
-      chart.legend.forEach((e, i) => {
-        this.legend.push({
-          color: chart.colors[i],
-          text: chart.title + " - " + e,
-          active: false
+      charts.forEach(chart => {
+        chart.legend.forEach((e, i) => {
+          this.legend.push({
+            color: chart.colors[i],
+            text: chart.title + " - " + e,
+            active: false
+          });
         });
       });
-    });
+    }
 
     // this.seriesService.setLegends(this.legend)
   }

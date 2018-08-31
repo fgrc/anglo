@@ -16,6 +16,7 @@ import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 
+import { data } from '../../_core/data';
 
 @Component({
   selector: 'charts',
@@ -43,6 +44,11 @@ export class ChartsComponent implements OnInit {
 
     private charts$;
     private charts;
+    
+    private initChart = true;
+
+    private firstValue$;
+    private firstValue;
 
     @ViewChild('stackedlinechart') stackedlinechart;
 
@@ -60,10 +66,13 @@ export class ChartsComponent implements OnInit {
     this.seriesState$  = this.store.select('series');
 
     this.charts$       = this.seriesState$ .map(state => state.charts);
+    this.firstValue$ = this.seriesState$.map(state => state.firstValues);
   }
 
   ngOnInit() {
+    this.firstValue$.subscribe(firstValue => this.firstValue = firstValue);
     this.charts$.subscribe(charts => this.setCharts(charts));
+
   }
 
   setCharts(charts) {
@@ -71,7 +80,15 @@ export class ChartsComponent implements OnInit {
     this.height = this.stackedlinechart.nativeElement.getBoundingClientRect().height;
     this.widthC = this.width - this.margin.left - this.margin.right;
     this.heightC = this.height - this.margin.top - this.margin.bottom;
-    this.charts = charts;
+    if (this.firstValue){
+      const firstData = this.firstData();
+      this.charts = [];
+      this.charts.push({ title: 'Tph', legend: ['Tph'], data: firstData });
+    }else{
+      this.charts = charts;
+    }
+    
+    
     d3.select('#stacked-line-chart').selectAll("*").remove();
     if(this.charts.length === 0) return
     this.initSvg();
@@ -81,11 +98,15 @@ export class ChartsComponent implements OnInit {
     // Axis Y
     this.initAxisY();
     this.drawAxisY();
-
-    this.drawLine();
     this.dropShadow();
+    this.drawLine();
+    
   }
-
+  
+  firstData(){
+    const _data = data.filter(d => d.Scenario === 'real' && d.Name === 'Grade of copper' && d.Location === 'LT2/Rougher/Feed');
+    return _data.map(d => { return {date: d.Date, values: [d.Value] } })
+  }
 
   initSvg() {
 
@@ -178,9 +199,9 @@ export class ChartsComponent implements OnInit {
               .attr('class', '.dot-times')
               .attr('id', 'dot-'+id)
               .style('stroke', 'white')
-              .attr('stroke-width', 1)
+              .attr('stroke-width', 0)
               .attr('r',4)
-              .style('fill', color)
+              .style('fill', 'transparent')
               .attr('cx', (d: any) => this.x(new Date(d.date)))
               .attr('cy', (d: any) => this.y[i](d.values[zz] ))
               .attr('transform', 'translate(0,' + (this.heightC - this.subHeightC * (i + 1 )  ) + ')')
