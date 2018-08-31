@@ -110,6 +110,36 @@ b.icon {
 }
 
 .init-charts{
-    filter: blur(7px);
+    filter: blur(10px);
 }
 
+.first-button{
+    z-index: 2;
+    position: absolute;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    width: 200px;
+}
+
+.first-text{
+    z-index: 2;
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+}
+
+.first-values{
+    // z-index: 2;
+    // background-color: white;
+    // border: 1px solid $border-color;
+    // border-radius: 0 1em;
+    // box-shadow: $box-shadow;
+    // margin: 1.5em;
+    // padding: 1.5em 2em;
+    // position: absolute;
+    // top: 40%;
+    // transform: translate(-50%, -50%);
+    // left: 50%;
+    // width: 200px;
+}

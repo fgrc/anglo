@@ -104,8 +104,8 @@ export class ChartsComponent implements OnInit {
   }
   
   firstData(){
-    const _data = data.filter(d => d.Scenario === 'real' && d.Name === 'Grade of copper' && d.Location === 'LT2/Rougher/Feed');
-    return _data.map(d => { return {date: d.Date, values: [d.Value] } })
+    const _data = data.filter(d => d.Scenario === 'Real' && d.Name === 'Fine copper' && d.Location === 'LT2/Rougher/Feed');
+    return _data.map(d => { return {date: d.Date, values: [Number(d.Value)] } })
   }
 
   initSvg() {
@@ -118,7 +118,10 @@ export class ChartsComponent implements OnInit {
           .attr('width', this.width)
           .attr('height', this.height)
           .append('g')
-          .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+          .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')')
+      
+    
+
   }
 
   initAxisX(){
@@ -166,6 +169,72 @@ export class ChartsComponent implements OnInit {
  drawLine() {
       this.line = [];
       this.dots = [];
+      var eventCapture = this.svg.append("rect")
+          .attr('width', this.width)
+          .attr('height', this.height)
+          .style('fill', 'transparent')
+          .on("mousemove", (e) => {
+                var xy = d3.mouse(eventCapture.node())
+                let date = this.x.invert(xy[0]) 
+            
+                let dateIndex = this.charts[0].data.findIndex(d => date < new Date(d.date));
+                if (this.charts[0].data.length < dateIndex) dateIndex = this.charts[0].data.length
+                console.log(dateIndex)
+                if (dateIndex === -1) return 
+                date = new Date(this.charts[0].data[dateIndex].date);
+        
+                const widthLine = 1;
+                const verticalLineRemove = this.svg.selectAll('.vertical-line-tooltip')
+                verticalLineRemove.transition().duration(50).style('opacity', 0).remove();
+                
+                const verticalLine = this.svg
+                  .insert('rect')
+                  .classed('vertical-line-tooltip', true)
+                  .classed('bar', true)
+                  .attr('width', widthLine)
+                  .attr("x", this.x(date) - widthLine/2)
+                  .attr("y", -10)
+                  .attr("height", this.height - this.margin.top - this.margin.bottom + 10 )
+                  .style("fill", "#ababab")
+                  .style('opacity', 0.7)
+                
+                                
+                // Tooltip
+                const leftMargin = verticalLine._groups[0][0].getBoundingClientRect().left - document.getElementById('stacked-line-chart').getBoundingClientRect().left + this.margin.left/2 - 10;
+                d3.selectAll('.tooltip')
+                  .transition()
+                  .duration(50)
+                  .style('opacity', 1)
+                  .style('display', 'block')
+                  .style('position', 'absolute')
+                  .style('filter', function() { return  'url(#drop-shadow)'; })
+                  .style('left', `${( leftMargin )}px`);
+            
+                this.valuesTooltip.date = date;
+                this.valuesTooltip.data = [];
+                let lineCount = 0;
+                this.charts.forEach((chart, cId) => {
+                  const values = chart.data[dateIndex].values;
+                  chart.legend.forEach((legend, lId) => {
+                    this.valuesTooltip.data.push({id: cId.toString() + '-' + lId.toString(), color: chart.colors[lId], legend: chart.title + ' - ' + legend, value: Math.round(values[lId]*100)/100 })
+                    lineCount++;
+                  })
+                });
+          })
+          .on("mouseout", (e) => {
+               d3.selectAll('.tooltip')
+                .transition()
+                .duration(50)
+                .style('opacity', 0)
+                .style('display', 'none')
+          
+              const verticalLine = this.svg.selectAll('.vertical-line-tooltip')
+              verticalLine.transition().duration(50).style('opacity', 0).remove();
+          
+              this.valuesTooltip.date = '';
+              this.valuesTooltip.data = [];
+          })
+
       for(let i= 0; i < this.totalSeries; i ++){
         this.charts[i].colors = [];
 
@@ -193,34 +262,43 @@ export class ChartsComponent implements OnInit {
               .on('mouseover', (dd, ii, ee) => this.mouseOverLineIn(dd, ii, ee))
               .on('mouseout', (dd, ii, ee) => this.mouseOverLineOut(dd, ii, ee))
 
-          const dots = this.svg.selectAll('.dot-times')
+          const dots = this.svg.selectAll('.dots')
               .data(this.charts[i].data)
               .enter().append('circle')
-              .attr('class', '.dot-times')
+              .attr('class', 'dot-times')
               .attr('id', 'dot-'+id)
               .style('stroke', 'white')
-              .attr('stroke-width', 0)
+              .attr('stroke-width', 1)
               .attr('r',4)
-              .style('fill', 'transparent')
+              .style('fill', color)
               .attr('cx', (d: any) => this.x(new Date(d.date)))
               .attr('cy', (d: any) => this.y[i](d.values[zz] ))
               .attr('transform', 'translate(0,' + (this.heightC - this.subHeightC * (i + 1 )  ) + ')')
+              // .style('filter', function() { return  'url(#drop-shadow)'; })
               .on('mouseover', (dd, ii, ee) => this.drawTooltip(dd, ii, ee, id))
               .on('mouseout', (dd, ii, ee) => this.hideTooltip(dd, ii, ee, id) )
 
 
           this.dots.push(dots);
+
+          
+
         }
       }
   }
 
+
   mouseOverLineIn(d, i, e){
     this.opacityAllLines(0.3);
+    const id = e[0].id.split('line-')[1];
+    this.opacityAllDots(0.3)
+    d3.selectAll("#dot-"+id).style("opacity", 1);
     d3.selectAll(e).style("opacity", 1);
   }
 
   mouseOverLineOut(d, i, e){
     this.opacityAllLines(1);
+    this.opacityAllDots(1);
   }
 
 
@@ -233,8 +311,9 @@ export class ChartsComponent implements OnInit {
 
     // opacity lines
     this.opacityAllLines(0.3);
+    this.opacityAllDots(0.3);
     lineSelected.style("opacity", 1);
-
+    dotSelected.style("opacity", 1);
     // draw Vertical Line
     const widthLine = 1;
     const verticalLine = this.svg
@@ -273,7 +352,7 @@ export class ChartsComponent implements OnInit {
 
   hideTooltip(d, i, e, id){
     this.opacityAllLines(1);
-
+    this.opacityAllDots(1);
     d3.selectAll('.tooltip')
       .transition()
       .duration(50)
@@ -290,6 +369,12 @@ export class ChartsComponent implements OnInit {
 
   opacityAllLines(opacity){
     this.svg.selectAll('.time.line').each((dd, ii, ee) => {
+         d3.selectAll(ee).style("opacity", opacity);
+    })
+  }
+
+  opacityAllDots(opacity){
+    this.svg.selectAll('.dot-times').each((dd, ii, ee) => {
          d3.selectAll(ee).style("opacity", opacity);
     })
   }

@@ -97,6 +97,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
   addNewSerie = () => {
     const newSerie: ISerie = new Serie(this.measures.map(d => {return { title: d, value: false}}), [], []);
     this.series.push(newSerie);
+    this.seriesService.setFirstValues(false);
     this.setSeries();
   };
 
@@ -117,7 +118,12 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.crossfilters.filter(d => d.serieId === serieIndex).forEach((crossfilter, crossfilterIndex) => {
       this.seriesService.filterLocations(crossfilter.dimensions.find(d => d.title === 'location').dimension,  [title] );
        const groupByTime = this.seriesService.initGroupBy(crossfilter.dimensions.find(d => d.title === 'time').dimension);
-       const values = this.seriesService.getAvrsCrossfilter(groupByTime);
+       let values = [];
+      if(this.series[serieIndex].title === 'Tph'){
+        values = this.seriesService.getAcmCrossfilter(groupByTime);
+      }else{
+        values = this.seriesService.getAvrsCrossfilter(groupByTime);
+      }
        this.charts[chartIndex].legend[crossfilterIndex] = this.charts[chartIndex].legend[crossfilterIndex].split(' - ')[0] + ' - ' + title;
        this.charts[chartIndex].data.forEach((data, dataIndex) => data.values[crossfilterIndex] = values[dataIndex]);
     });
@@ -145,7 +151,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
     dataSerie  = data.filter(d => d.Name === title && d.Location === locations[0].title);
 
-    const scenarios = dataSerie.filter((v, i, a) => a.findIndex(d => d.Scenario === v.Scenario) === i).map(d =>  { return (d.Scenario === 'real') ? {title: d.Scenario, value: true } : {title: d.Scenario, value: false } });
+    const scenarios = dataSerie.filter((v, i, a) => a.findIndex(d => d.Scenario === v.Scenario) === i).map(d =>  { return (d.Scenario === 'Real') ? {title: d.Scenario, value: true } : {title: d.Scenario, value: false } });
 
     // assign Scenerarios & Locations
     Object.assign(this.series[serieIndex], {title: title, locations: locations, scenarios: scenarios});
@@ -155,15 +161,15 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
     // init
     const crossfilter      = this.initAllValuesCrossfilters(title, serieIndex);
-    // filter real values
-    this.seriesService.filterScenarios(crossfilter.dimensions.find(d => d.title === 'scenario').dimension, ['real']);
+    // filter Real values
+    this.seriesService.filterScenarios(crossfilter.dimensions.find(d => d.title === 'scenario').dimension, ['Real']);
     // filter first location value
     this.seriesService.filterLocations(crossfilter.dimensions.find(d => d.title === 'location').dimension,  [locations[0].title] );
     
     
     // Group
     const groupByTime      = this.seriesService.initGroupBy(crossfilter.dimensions.find(d => d.title === 'time').dimension);
-    crossfilter.groups.push({title: 'Time', scenario:'real', location: locations[0].title ,group: groupByTime});
+    crossfilter.groups.push({title: 'Time', scenario:'Real', location: locations[0].title ,group: groupByTime});
 
     if (crossfilterIndex === -1){
       this.crossfilters.push(crossfilter);
@@ -172,7 +178,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     };
 
     // Charts
-    const legend = 'real' + ' - ' + locations[0].title;
+    const legend = 'Real' + ' - ' + locations[0].title;
     const chartIndex = this.charts.findIndex(d => d.serieId === serieIndex);
     const chart      = this.initChart(title, serieIndex, groupByTime, legend);
 
@@ -184,8 +190,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
     // set Values
     this.setSeries();
-    this.seriesService.setFirstValues(false);
-    this.setFilter({serieId: serieIndex, measure: title, locations: [locations[0].title], scenarios: ['real']});
+    this.setFilter({serieId: serieIndex, measure: title, locations: [locations[0].title], scenarios: ['Real']});
     this.setFilters();
     this.setCrossfilters();
     this.setCharts();
@@ -210,7 +215,12 @@ export class SideBarComponent implements OnInit, OnDestroy {
       const legend = title + ' - ' + locationTitle;
       const chartIndex = this.charts.findIndex(d => d.serieId === serieIndex);
       if (chartIndex !== -1){
-      const values = this.seriesService.getAvrsCrossfilter(groupByTime);
+      let values = [];
+      if(this.series[serieIndex].title === 'Tph'){
+        values = this.seriesService.getAcmCrossfilter(groupByTime);
+      }else{
+        values = this.seriesService.getAvrsCrossfilter(groupByTime);
+      }
       this.charts[chartIndex].legend.push(legend);
       this.charts[chartIndex].data.forEach((d,i) => d.values.push(values[i]));
     }else{
@@ -286,7 +296,12 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
   initChart = (title: string, serieId: number, groupBy: any, legend: string ) => {
     const keys   = this.seriesService.getKeysCrossfilter(groupBy);
-    const values = this.seriesService.getAvrsCrossfilter(groupBy);
+    let values = [];
+      if(this.series[serieId].title === 'Tph'){
+        values = this.seriesService.getAcmCrossfilter(groupBy);
+      }else{
+        values = this.seriesService.getAvrsCrossfilter(groupBy);
+      }
     const legendChart = [legend];
     const data   = keys.map((d,i) => { return {date: d, values: [ values[i] ] } });
     data.sort((a,b) => {

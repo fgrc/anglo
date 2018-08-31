@@ -8,6 +8,12 @@
   <div class='col content-container'>
     <div class="container-visualization container-fluid">
       <top-bar></top-bar>
+      <div class="first-values">
+      <h2 class="text-no-data first-text" *ngIf="firstValue">Add your first time-series</h2>
+        <div class="btn btn-info btn-sm first-button mb-2 animation-ready-min-width" (click)="addFirstSerie()" *ngIf="firstValue">
+          Add<b class="icon">+</b>
+        </div>
+      </div>
       <div class="row" [ngClass]="{'init-charts': firstValue}">
         <h2 *ngIf="charts.length === 0 && !firstValue" class="text-no-data">No data</h2>
         <div class="col-sm-9">

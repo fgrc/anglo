@@ -69,7 +69,7 @@ export class LegendComponent implements OnInit, OnDestroy {
   setLegend(charts) {
 
     if (this.firstValue){
-      this.legend = [{text: 'Grade of copper - real', color: '#9C6ADE', active: false}];
+      this.legend = [{text: 'Fine copper - Real', color: '#9C6ADE', active: false}];
     }else{
     this.legend = [];
       charts.forEach(chart => {
