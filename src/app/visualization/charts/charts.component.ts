@@ -4,7 +4,7 @@ import { Store }                             from '@ngrx/store';
 import { seriesState, seriesStateActions }   from '../../_core/store/series.actions';
 import { filtersState, filtersStateActions } from '../../_core/store/filters.actions';
 // Services
-import { SeriesService }                     from '../../_core/services/series.service';
+// import { SeriesService }                     from '../../_core/services/series.service';
 import { FiltersService }                    from '../../_core/services/filters.service';
 
 import * as d3 from 'd3'
@@ -58,7 +58,7 @@ export class ChartsComponent implements OnInit {
 
   constructor(
     private store: Store<seriesState | filtersState>,
-    private seriesService: SeriesService
+    // private seriesService: SeriesService
   ) {
 
 
