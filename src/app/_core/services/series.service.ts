@@ -44,23 +44,23 @@ export class SeriesService {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     switch(timeScale){
       case 'Hours':
-      break;
+      return dx.dimension(d => d.Date);
       case 'Days':
       return dx.dimension(d => {
-        const date = d.Date.split('/');
-        return date[0] + ' ' + months[date[1]-1] + ' ' + date[2];
+        const date = d.Date.split(' ')[0].split('-');
+        return date[2] + ' ' + months[date[1]-1] + ' ' + date[0];
       });
       case 'Weeks':
       break;
       case 'Months':
         return dx.dimension(d => {
-          const date = d.Date.split('/');
-          return months[date[1]-1] + ' ' + date[2];
+          const date = d.Date.split(' ')[0].split('-');
+          return months[date[1]-1] + ' ' + date[0];
         });
       case 'Years':
         return dx.dimension(d => {
-            const date = d.Date.split('/');
-            return date[2];
+            const date = d.Date.split(' ')[0].split('-');
+            return date[0];
           });
       
     }
@@ -78,7 +78,7 @@ export class SeriesService {
   addReduce    = (p: any, v:any) => {
     ++p.count;
     p.date  = new Date(v.Date.split('/')[1], v.Date.split('/')[0], v.Date.split('/')[2]);
-    p.acm  += Number(v.Value.replace(',','.'));
+    p.acm  += v.Value;
     p.avr   = p.acm/p.count;
     return p;
   }
@@ -86,7 +86,7 @@ export class SeriesService {
   removeReduce = (p: any, v:any) => {
     --p.count;
     p.date  = new Date(v.Date.split('/')[2], v.Date.split('/')[1], v.Date.split('/')[0]);
-    p.acm  -= Number(v.Value.replace(',','.'));
+    p.acm  -= v.Value;
     p.avr   = p.acm/p.count;
     return p;
   }
