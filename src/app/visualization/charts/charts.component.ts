@@ -173,7 +173,9 @@ export class ChartsComponent implements OnInit {
       mode: 'range',
       format: {
       to: function(a){
-      var pipFormats = {'0':domain[0].toDateString(), '1':'', '2':'', '3':'', '4':domain[1].toDateString()};
+      const init = domain[0].toDateString().split(' ')[1] + ' ' + domain[0].toDateString().split(' ')[2] + ' ' + domain[0].toDateString().split(' ')[3];
+      const last = domain[1].toDateString().split(' ')[1] + ' ' + domain[1].toDateString().split(' ')[2] + ' ' + domain[1].toDateString().split(' ')[3];
+      var pipFormats = {'0': init, '1':'', '2':'', '3':'', '4':last };
       return pipFormats[a];
       }
       }

@@ -61,8 +61,15 @@
           </li>
         </ul>
       </div>
+      
+      
+      <span class="serie-title">Location: </span>
+      <ng-select  [multiple] = "true"
+                  [items]    = "itemsLocation(serie.locations)"
+                  (data)     = "triggerLocationDropDown($event, serieIndex)"
+                  placeholder= "No city selected"></ng-select>
 
-      <span class="serie-title"> Location: </span>
+      <!--<span class="serie-title"> Location: </span>
 
       <div class="btn-group btn-block mb-3" dropdown>
         <button id="locationDropDownButton" dropdownToggle type="button" class="btn btn-default dropdown-toggle btn-block btn-sm"
@@ -76,7 +83,7 @@
             </a>
           </li>
         </ul>
-      </div>
+      </div>-->
 
       <span class="serie-title">Scenarios: </span>
       <div class="container-scenarios">

@@ -5,7 +5,9 @@ import { CommonModule }     from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { TypeaheadModule }  from 'ngx-bootstrap';
 import { FormsModule }      from '@angular/forms';
-import { NouisliderModule }       from 'ng2-nouislider';
+import { NouisliderModule } from 'ng2-nouislider';
+import { SelectModule }     from 'ng2-select';
+
 
 // Component
 import { VisualizationComponent } from './visualization.component';
@@ -31,6 +33,7 @@ import { FiltersService } from '../_core/services/filters.service'
     TypeaheadModule.forRoot(),
     FormsModule,
     NouisliderModule,
+    SelectModule
     // RouterModule.forChild(visualizationRoutes)
   ],
   exports: [

@@ -53,8 +53,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
   private timeScales = ['Hours','Days', 'Months', 'Years'];
 
   private colors     = ['#2382f8', '#fa3f40', '#fc9537', '#fa365c', '#59d66f', '#43acd9', '#feca42', '#5a5ed1'];
-
-
+  
   private timeScaleDropDownButtonTittle: string = 'Days';
   public sidebarState:string='open';
   constructor(
@@ -94,6 +93,11 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.timeScaleDropDownButtonTittle = title;
   };
 
+  itemsLocation(items){
+    return items.map(d => d.title)
+  }  
+
+  
   addNewSerie = () => {
     const newSerie: ISerie = new Serie(this.measures.map(d => {return { title: d, value: false}}), [], []);
     this.series.push(newSerie);
@@ -106,7 +110,10 @@ export class SideBarComponent implements OnInit, OnDestroy {
     return location ? location.title : 'Select';
   };
 
-  triggerLocationDropDown = (title ,locationIndex: number, serieIndex: number) => {
+  triggerLocationDropDown = (values , serieIndex: number) => {
+    const title = values[values.length - 1].text;
+    const locationIndex = this.series[serieIndex].locations.findIndex(d => d.title === title);
+    
     this.series[serieIndex].locations.forEach((d,i) => (locationIndex === i) ? d.value = true : d.value = false );
 
     const filterIndex         = this.filters.findIndex(d => d.serieId === serieIndex);
