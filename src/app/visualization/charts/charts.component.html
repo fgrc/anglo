@@ -13,18 +13,10 @@
         </tr>
     </div>
 </div>
-<div class="chart" [ngStyle] = "{display: checkPage('charts') }">
+<div class="chart">
     <div #stackedlinechart id="stacked-line-chart"></div>
     <div></div>
     <div class="container-slider" *ngIf = "charts.length > 0">
     <nouislider [config]="someRange2config" [(ngModel)]="someRange"></nouislider>
     </div>                            
-</div>
-
-<div class="table" *ngIf = "!firsValue" [ngStyle] = "{display: checkPage('tables')}">
-    <img src="assets/table2.png" alt="" style="max-width: 100%">
-</div>
-
-<div class="table" *ngIf = "!firsValue" [ngStyle] = "{display: checkPage('stats')}">
-    <img src="assets/stats.png" alt="" style="max-width: 100%" >
 </div>

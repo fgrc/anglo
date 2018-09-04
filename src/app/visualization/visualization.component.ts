@@ -19,6 +19,8 @@ import { LegendService } from "./legend/legend.service";
 // Interfaces
 import { ISerie, Serie }                     from '../_core/interfaces/series';
 
+import { Router, ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: "visualization",
 
@@ -56,6 +58,9 @@ export class VisualizationComponent implements OnInit, OnDestroy {
 
   private measures;
 
+  private pages$
+  private pages  
+
   constructor(
     private filtersService: FiltersService,
     private store: Store<filtersState>,
@@ -72,6 +77,7 @@ export class VisualizationComponent implements OnInit, OnDestroy {
     this.series$       = this.seriesState$ .map(state => state.series);
     this.crossfilters$ = this.seriesState$ .map(state => state.crossfilters);
     this.firstValue$   = this.seriesState$ .map(state => state.firstValues);
+    this.pages$        = this.filtersState$.map(state => state.pages);
   }
 
   toggleSidebar(event) {
@@ -87,6 +93,10 @@ export class VisualizationComponent implements OnInit, OnDestroy {
       this.legendState === "open" ? "Hide legend" : "Show legend";
   }
   getDataChart = () => Math.random();
+  
+  checkPage(page){
+    return this.pages === page    
+  }
 
   ngOnInit() {
     this.measures = data
@@ -97,6 +107,7 @@ export class VisualizationComponent implements OnInit, OnDestroy {
     this.firstValue$  .subscribe(firstValue => this.firstValue = firstValue);
     this.series$      .subscribe(series => (this.series = series));
     this.charts$      .subscribe(charts => (this.charts = charts));
+    this.pages$       .subscribe(pages => this.pages = pages)
     
 
     this.sidebarStateSub = this.sidebarService

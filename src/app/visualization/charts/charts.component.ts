@@ -103,11 +103,9 @@ export class ChartsComponent implements OnInit {
     this.pages$.subscribe(pages => this.pages = pages);
     this.firstValue$.subscribe(firstValue => this.firstValue = firstValue);
     this.charts$.subscribe(charts => this.setCharts(charts));
+  
   }
 
-  checkPage(page){
-    return this.pages === page ? 'block': 'none';    
-  }
 
   setCharts(charts) {
     this.width = this.stackedlinechart.nativeElement.getBoundingClientRect().width;

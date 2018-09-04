@@ -17,7 +17,9 @@
       <div class="row" [ngClass]="{'init-charts': firstValue}">
         <h2 *ngIf="charts.length === 0 && !firstValue" class="text-no-data">No data</h2>
         <div class="col-sm-9">
-          <charts></charts>
+          <charts *ngIf = "checkPage('charts')"></charts>
+          <tables *ngIf = "checkPage('tables')"></tables>
+          <stats  *ngIf = "checkPage('stats')"></stats>
         </div>
         <div class="col-sm-3">
           <legend></legend>
