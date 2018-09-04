@@ -97,7 +97,10 @@ export class SideBarComponent implements OnInit, OnDestroy {
     return items.map(d => d.title)
   }  
 
-  
+  initLocation(items){
+    return items.filter(d => d.value === true).map(d => d.title)
+  }
+
   addNewSerie = () => {
     const newSerie: ISerie = new Serie(this.measures.map(d => {return { title: d, value: false}}), [], []);
     this.series.push(newSerie);
@@ -109,12 +112,18 @@ export class SideBarComponent implements OnInit, OnDestroy {
     const  location = this.series[serieIndex].locations.find(d => d.value === true);
     return location ? location.title : 'Select';
   };
+  
+  removeTriggerLocation = (values, serieIndex) => {
+    
+    
+    this.series[serieIndex].locations.forEach((d,i) => (values.findIndex(dd => dd.text === d.title ) !== -1 ) ? d.value = true : d.value = false );
+  }
 
   triggerLocationDropDown = (values , serieIndex: number) => {
     const title = values[values.length - 1].text;
     const locationIndex = this.series[serieIndex].locations.findIndex(d => d.title === title);
     
-    this.series[serieIndex].locations.forEach((d,i) => (locationIndex === i) ? d.value = true : d.value = false );
+    // this.series[serieIndex].locations.forEach((d,i) => (locationIndex === i) ? d.value = true : d.value = false );
 
     const filterIndex         = this.filters.findIndex(d => d.serieId === serieIndex);
     const locationFilterIndex = this.filters[filterIndex].locations.findIndex(d => d.title === title);
@@ -190,7 +199,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     const chart      = this.initChart(title, serieIndex, groupByTime, legend);
 
     if( chartIndex === -1){
-      this.charts.push(chart);
+      this.charts.unshift(chart);
     }else{
       this.charts[chartIndex] = chart;
     }
@@ -233,7 +242,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     }else{
         
         const chart = this.initChart(this.series[serieIndex].title, serieIndex,groupByTime, legend)
-        this.charts.push(chart);
+        this.charts.unshift(chart);
       }
       // Assign Values
       this.crossfilters.push(crossfilter);

@@ -52,6 +52,8 @@ export class ChartsComponent implements OnInit {
 
     private delta: number = 20; 
 
+    private mouseOverTooltip = false;
+
     someRange = [0,15]
     
     someRange2config: any = {
@@ -163,11 +165,8 @@ export class ChartsComponent implements OnInit {
     behaviour: 'drag',
     connect: true,
     range: {
-    'min': [0, 1],
-    '25%': [1,1],
-    '50%': [2,1],
-    '75%': [3,1],
-    'max': [4,1]
+    'min': 0,
+    'max': 4
     },
     pips: {
       mode: 'range',
@@ -299,17 +298,21 @@ export class ChartsComponent implements OnInit {
                 });
           })
           .on("mouseout", (e) => {
-               d3.selectAll('.tooltip')
-                .transition()
-                .duration(50)
-                .style('opacity', 0)
-                .style('display', 'none')
-          
-              const verticalLine = this.svg.selectAll('.vertical-line-tooltip')
-              verticalLine.transition().duration(50).style('opacity', 0).remove();
-          
-              this.valuesTooltip.date = '';
-              this.valuesTooltip.data = [];
+              setTimeout(() => {
+              if (this.mouseOverTooltip) return
+                 d3.selectAll('.tooltip')
+                  .transition()
+                  .duration(50)
+                  .style('opacity', 0)
+                  .style('display', 'none')
+            
+                const verticalLine = this.svg.selectAll('.vertical-line-tooltip')
+                verticalLine.transition().duration(50).style('opacity', 0).remove();
+            
+                this.valuesTooltip.date = '';
+                this.valuesTooltip.data = [];
+                this.mouseOverTooltip = false;
+              }, 100)
           })
 
       for(let i= 0; i < this.totalSeries; i ++){
@@ -364,6 +367,26 @@ export class ChartsComponent implements OnInit {
       }
   }
 
+    
+  mouseEnterTooltip(){
+    this.mouseOverTooltip = true;
+  }
+
+
+  mouseLeaveTooltip(){
+    d3.selectAll('.tooltip')
+      .transition()
+      .duration(50)
+      .style('opacity', 0)
+      .style('display', 'none')
+
+    const verticalLine = this.svg.selectAll('.vertical-line-tooltip')
+    verticalLine.transition().duration(50).style('opacity', 0).remove();
+
+    this.valuesTooltip.date = '';
+    this.valuesTooltip.data = [];
+    this.mouseOverTooltip = false;
+  }
 
   mouseOverLineIn(d, i, e){
     this.opacityAllLines(0.3);

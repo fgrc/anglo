@@ -66,8 +66,10 @@
       <span class="serie-title">Location: </span>
       <ng-select  [multiple] = "true"
                   [items]    = "itemsLocation(serie.locations)"
+                  
                   (data)     = "triggerLocationDropDown($event, serieIndex)"
-                  placeholder= "No city selected"></ng-select>
+                  (removed)   = "removeTriggerLocation($event, serieIndex)"
+                  placeholder= "No location selected"></ng-select>
 
       <!--<span class="serie-title"> Location: </span>
 

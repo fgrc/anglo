@@ -14,17 +14,17 @@
           Add<b class="icon">+</b>
         </div>
       </div>
-      <div class="row" [ngClass]="{'init-charts': firstValue}">
+      <div class="row" [ngClass]="{'init-charts': firstValue}" *ngIf = "checkPage('charts')">
         <h2 *ngIf="charts.length === 0 && !firstValue" class="text-no-data">No data</h2>
         <div class="col-sm-9">
-          <charts *ngIf = "checkPage('charts')"></charts>
-          <tables *ngIf = "checkPage('tables')"></tables>
-          <stats  *ngIf = "checkPage('stats')"></stats>
+          <charts></charts>
         </div>
         <div class="col-sm-3">
           <legend></legend>
         </div>
       </div>
+      <tables *ngIf = "checkPage('tables')"></tables>
+      <stats  *ngIf = "checkPage('stats')"></stats>
     </div>
   </div>
 </div>

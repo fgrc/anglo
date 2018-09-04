@@ -74,7 +74,7 @@ export class LegendComponent implements OnInit, OnDestroy {
     this.legend = [];
       charts.forEach(chart => {
         chart.legend.forEach((e, i) => {
-          this.legend.push({
+          this.legend.unshift({
             color: chart.colors[i],
             text: chart.title + " - " + e,
             active: false
