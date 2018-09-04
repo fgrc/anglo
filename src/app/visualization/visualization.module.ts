@@ -12,6 +12,7 @@ import { SideBarComponent }       from './side-bar/side-bar.component';
 import { ChartsComponent }        from './charts/charts.component';
 import { TopBarComponent }        from './top-bar/top-bar.component';
 import { LegendComponent }        from './legend/legend.component';
+import { NouisliderModule }       from 'ng2-nouislider';
 
 // Services
 import { SeriesService }  from '../_core/services/series.service'
@@ -22,7 +23,8 @@ import { FiltersService } from '../_core/services/filters.service'
     CommonModule,
     BsDropdownModule.forRoot(),
     TypeaheadModule.forRoot(),
-    FormsModule
+    FormsModule,
+    NouisliderModule
   ],
   declarations: [
     VisualizationComponent,

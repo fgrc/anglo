@@ -11,11 +11,13 @@ declare module '@ngrx/store' {
 export const setTimeScale = 'setTimeScale';
 export const setMeasures  = 'setMeasures';
 export const setFilters   = 'setFilters';
+export const setPages     =  'setPages';
 
 export const filtersStateActions = {
     setTimeScale,
     setMeasures,
-    setFilters
+    setFilters,
+    setPages
 }
 
 // Interface declaration
@@ -28,12 +30,14 @@ export interface filtersState {
         locations : string [],
         scenarios : string []
     }[];
+    pages : string;
 }
 
 export const filtersInitialState: filtersState = {
     timeScale: '',
     measures : [],
-    filters  : []
+    filters  : [],
+    pages    : 'charts'
 }
 
 // Reducer
@@ -45,6 +49,8 @@ export function filtersReducer(state: filtersState = filtersInitialState, action
             return Object.assign({}, state, { measures: action.payload }) as filtersState;
         case filtersStateActions.setFilters:
             return Object.assign({}, state, { filters: action.payload }) as filtersState;
+        case filtersStateActions.setPages:
+            return Object.assign({}, state, { pages: action.payload }) as filtersState;
         default:
             return Object.assign({}, state)
     }

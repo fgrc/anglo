@@ -21,5 +21,7 @@ export class FiltersService {
   setTimeScale = (timeScale: string)  => this.store.dispatch({ type: filtersStateActions.setTimeScale, payload: timeScale });
 
   setFilters = (fitlers: any) => this.store.dispatch({ type: filtersStateActions.setFilters, payload: fitlers });
+
+  setPages = (pages: any) => this.store.dispatch({ type: filtersStateActions.setPages, payload: pages });
     
 }

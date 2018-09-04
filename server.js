@@ -12,23 +12,12 @@ const http = require('http');
 // configuration =================
 
 var app = express(); // create our app w/ express
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'dist/data-platform/')));
-
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+app.use(express.static("myAp")); // myApp will be the same folder name.
+app.get("/", function (req, res,next) {
+ res.redirect("/"); 
 });
-
-
-const port = process.env.PORT || '8090';
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-const server = http.createServer(app);
+app.listen(8081, "localhost");
+console.log("MyProject Server is Listening on port 8080");
 
 /**
  * Listen on provided port, on all network interfaces.

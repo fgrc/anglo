@@ -50,11 +50,40 @@ export class ChartsComponent implements OnInit {
     private firstValue$;
     private firstValue;
 
+    private delta: number = 20; 
+
+    someRange = [0,15]
+    
+    someRange2config: any = {
+    behaviour: 'drag',
+    connect: true,
+    range: {
+    'min': [0, 1],
+    '25%': [1,1],
+    '50%': [2,1],
+    '75%': [3,1],
+    'max': [4,1]
+    },
+    pips: {
+      mode: 'range',
+      format: {
+      to: function(a){
+      var pipFormats = {'0':'', '1':'', '2':'', '3':'', '4':''};
+      return pipFormats[a];
+      }
+      }
+    }
+  };
+
     @ViewChild('stackedlinechart') stackedlinechart;
 
     private colors = ['#9C6ADE', '#ffab60', '#47C1BF', '#fa365c', '#074e8a', '#0fabf9', '#ffe93c', '#da00d1'];
 
-    public valuesTooltip = {title: 'Flotation', date: '', data:[]};
+    private valuesTooltip = {title: 'Flotation', date: '', data:[]};
+
+    private pages$
+    private pages
+               
 
   constructor(
     private store: Store<seriesState | filtersState>,
@@ -67,12 +96,17 @@ export class ChartsComponent implements OnInit {
 
     this.charts$       = this.seriesState$ .map(state => state.charts);
     this.firstValue$ = this.seriesState$.map(state => state.firstValues);
+    this.pages$ = this.filtersState$.map(state => state.pages);
   }
 
   ngOnInit() {
+    this.pages$.subscribe(pages => this.pages = pages);
     this.firstValue$.subscribe(firstValue => this.firstValue = firstValue);
     this.charts$.subscribe(charts => this.setCharts(charts));
+  }
 
+  checkPage(page){
+    return this.pages === page ? 'block': 'none';    
   }
 
   setCharts(charts) {
@@ -127,6 +161,27 @@ export class ChartsComponent implements OnInit {
   initAxisX(){
     this.x = d3Scale.scaleTime().range([0, this.widthC]);
     const domain = d3Array.extent(this.charts[0].data, (d) => new Date(d.date) );
+    this.someRange2config = {
+    behaviour: 'drag',
+    connect: true,
+    range: {
+    'min': [0, 1],
+    '25%': [1,1],
+    '50%': [2,1],
+    '75%': [3,1],
+    'max': [4,1]
+    },
+    pips: {
+      mode: 'range',
+      format: {
+      to: function(a){
+      var pipFormats = {'0':domain[0].toDateString(), '1':'', '2':'', '3':'', '4':domain[1].toDateString()};
+      return pipFormats[a];
+      }
+      }
+    }
+  };
+  
     this.x.domain(domain);
   }
 
@@ -153,17 +208,27 @@ export class ChartsComponent implements OnInit {
     for(let i = 0; i < this.totalSeries; i++){
       this.svg.append('g')
           .attr('class', 'axis axis--y')
-          .attr('transform', 'translate(0,' + (this.heightC - this.subHeightC * ( i + 1 )  ) + ')')
+          .attr('transform', 'translate(0,' + (this.heightC - this.subHeightC * ( i + 1 ) ) + ')')
           .call(d3Axis.axisLeft(this.y[i]))
           .append('text')
           .attr('class', 'axis-title')
           .attr('transform', 'rotate(-90)')
           .attr('y', 6)
           .attr('dy', '.71em')
-          .style('text-anchor', 'end')
+          .style('text-anchor', 'end')  
           .text(this.charts[i].title);
-    }
 
+    
+      this.svg.append("g")			
+      .attr("class", "grid")
+      .attr('transform', 'translate(0,' + (this.heightC - this.subHeightC * ( i + 1 ) ) + ')')
+      .call(d3Axis.axisLeft(this.y[i])
+          .tickSize(-this.widthC)
+          .tickFormat("")
+      )
+    
+    }
+    
   }
 
   closest (num, arr) {
@@ -192,7 +257,6 @@ export class ChartsComponent implements OnInit {
             
                 let dateIndex = this.charts[0].data.findIndex(d => date < new Date(d.date));
                 if (this.charts[0].data.length < dateIndex) dateIndex = this.charts[0].data.length
-                console.log(dateIndex)
                 if (dateIndex === -1) return 
                 date = new Date(this.charts[0].data[dateIndex].date);
         

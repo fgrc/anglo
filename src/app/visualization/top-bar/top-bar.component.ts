@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FiltersService } from '../../_core/services/filters.service';
 
 @Component({
   selector: 'top-bar',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private filtersService: FiltersService) { }
 
   ngOnInit() {
   }
+  
+  setPages = (page) => this.filtersService.setPages(page);
 
 }
