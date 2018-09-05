@@ -14,7 +14,7 @@
 	text-align: center;
 }
 .authNavCol svg {
-  max-width: 40px;
+  max-width: 50px;
   vertical-align: text-bottom;
 }
 .authNavCol hr {
@@ -27,6 +27,7 @@
 	font-size: 1rem;
 	line-height: 1.5;
 	margin-bottom: 1em;
+  min-height: 100px;
 }
 .authNavTitle{
   cursor: pointer;
