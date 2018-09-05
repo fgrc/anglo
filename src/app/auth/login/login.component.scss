@@ -1,6 +1,7 @@
 @import '~variables.scss';
 
 mat-card {
+  border: 1px solid $border-color;
   border-radius: 0 1em;
   margin: auto;
   max-width: 450px;

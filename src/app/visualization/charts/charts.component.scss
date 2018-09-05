@@ -1,3 +1,5 @@
+@import '~variables.scss';
+
 .legend-color{
     height: 12px;
     width: 12px;
@@ -11,17 +13,19 @@
     font-weight: 600;
     text-transform: uppercase;
     font-size: small;
-    color: #022d77;
+    color: $main-blue;
 }
 
 .legend-body{
     text-transform: uppercase;
     font-size: small;
-    color: #022d77;
+    color: $main-blue;
 }
 #stacked-line-chart{
     height: calc(100vh - 243px);
     width: 100%;
 }
 
-
+.tooltip {
+    padding: 1em;
+}
