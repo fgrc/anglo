@@ -580,8 +580,8 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/felipe/angular-two/angloamerican/data-plataform/node_modules/@angular/material/prebuilt-themes/indigo-pink.css */"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
-module.exports = __webpack_require__(/*! /home/felipe/angular-two/angloamerican/data-plataform/src/styles.scss */"./src/styles.scss");
+__webpack_require__(/*! /Users/erwinaguero/Documents/projects/anglo/node_modules/@angular/material/prebuilt-themes/indigo-pink.css */"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
+module.exports = __webpack_require__(/*! /Users/erwinaguero/Documents/projects/anglo/src/styles.scss */"./src/styles.scss");
 
 
 /***/ })
