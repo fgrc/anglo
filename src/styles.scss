@@ -20,7 +20,7 @@ body {
     background-color: #f9f9f9;
     background: linear-gradient(45deg, #f9f9f9, #ffffff);
     border: 1px solid $border-color;
-    box-shadow: 2px 2px 3px 0px rgba(160, 174, 201, 0.3);
+    box-shadow: $box-shadow;
     margin-bottom: 1em;
 }
 
@@ -61,7 +61,7 @@ b.icon {
     margin-left: 5px;
 }
 .btn {
-    padding: .75em;
+    padding: .75em .75em .7em;
 }
 .btn-default {
   background-color: $body-color;
@@ -102,9 +102,13 @@ b.icon {
   padding: 4px;
   padding-top: 8px;
   border-radius: 2px;
-  border: 1px solid rgb(210, 210, 210);
-  box-shadow: 1px 1px 20px rgba(210, 210, 210, 0.6);
+  border: 1px solid $border-line;
   color: black;
+  padding: 1em;
+  .table { margin-bottom: 0; }
+  tr {
+    text-align: left;
+  }
 }
 
 .dot-times{
@@ -112,13 +116,17 @@ b.icon {
 }
 
 .text-no-data{
-    text-align: center;
-    width: 100%;
-    text-transform: uppercase;
+    color: $main-blue;
     font-weight: 600;
-    color: #022d77;
-    margin-top: 24px;
+    text-align: center;
+    text-transform: uppercase;
     position: absolute;
+    top: 15%;
+    left: 1em;
+    right: 1em;
+}
+.first-text{
+    z-index: 2;
 }
 
 .init-charts{
@@ -126,19 +134,12 @@ b.icon {
 }
 
 .first-button{
-    z-index: 2;
     position: absolute;
-    top: 40%;
+    top: 30%;
     transform: translate(-50%, -50%);
     left: 50%;
     width: 200px;
-}
-
-.first-text{
     z-index: 2;
-    position: absolute;
-    top: 45%;
-    transform: translateY(-50%);
 }
 
 .first-values{
@@ -446,14 +447,37 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .container-slider{
-    width: 95%;
-    height: 85px;
-    padding-left: 6px;
-    padding-right: 6px;
-    margin-left: 40px;
+
+    // width: 95%;
+    // height: 85px;
+    // padding-left: 6px;
+    // padding-right: 6px;
+    // margin-left: 40px;
     // margin-right: 40px;
+
+    height: 90px;
+    margin: 0 35px;
+
 }
 
 .ui-select-multiple[_ngcontent-c10] .ui-select-choices[_ngcontent-c10]{
   display: table;
+}
+.ui-select-multiple {
+  margin-bottom: 1rem;
+  padding: 6px 8px 2px!important;
+}
+.ui-select-choices-row.active > a {
+  background-color: #dfe3e8!important;
+  color: inherit!important;
+}
+.ui-select-choices-row > a { padding: .23rem .5rem!important; }
+.ui-select-multiple .ui-select-match-item {
+  background: $main-blue;
+  border-radius: .2rem;
+  border: 0;
+  color: white;
+  font-size: .8rem;
+  padding: 4px 6px;
+  -webkit-appearance: none;
 }

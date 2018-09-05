@@ -1,3 +1,5 @@
+@import '~variables.scss';
+
 .legend-color{
     height: 12px;
     width: 12px;
@@ -11,13 +13,14 @@
     font-weight: 600;
     text-transform: uppercase;
     font-size: small;
-    color: #022d77;
+    color: $main-blue;
 }
 
 .legend-body{
     text-transform: uppercase;
     font-size: small;
-    color: #022d77;
+    color: $main-blue;
+    padding: .3rem .5rem;
 }
 #stacked-line-chart{
     height: calc(100vh - 243px);
@@ -29,27 +32,24 @@
     height:10px;
     background:lightgray;
     border-radius:5px;
-    }
+}
 
-.stepSliderClass
-{
+.stepSliderClass {
     width:20px;
     height:20px;
     background:lightgray;
     border-radius:50%;    
     border:1px solid royalblue;
     bottom:-50% !important;
-    }
+}
 .stephighlightClass{
     background:royalblue;
-    }
+}
 
 .container-slider{
-    width: 100%;
-    height: 85px;
-    padding-left: 6px;
-    padding-right: 6px;
-    margin-left: 60px;
-    margin-left: 10px;
+    height: 90px;
+    margin: 0 auto;
+    margin-left: 35px;
+    width: 95%;
 }
 

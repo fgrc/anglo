@@ -1,13 +1,13 @@
 @import '~variables.scss';
 
-a { color: #2498fb; }
+a { cursor: pointer; }
 a:hover { color: $main-blue-hover; }
 
 .nav{
-    border-bottom: 1px solid #dadfe9;
+    border-bottom: 1px solid $border-line;
     font-size: 1rem;
     justify-content: center;
-    padding: 10px 0 0;
+    padding: .8em 0 0;
 }
 
 .nav-link.disabled {
@@ -16,7 +16,7 @@ a:hover { color: $main-blue-hover; }
 }
 
 .nav-item{
-    color: #022d77;
+    color: $main-blue;
     font-size: small;
     font-weight: 600;
     text-transform: uppercase;

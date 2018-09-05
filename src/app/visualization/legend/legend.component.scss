@@ -1,17 +1,20 @@
+@import '~variables.scss';
+
 .list-group{
     font-weight: 600;
     text-transform: uppercase;
     font-size: small;
+    word-wrap: break-word;
 }
 
 .list-group-item {
-    border: 1px solid #dadfe9;
+    border: 1px solid $border-line;
 }
 .legend-title{
     font-weight: 600;
     text-transform: uppercase;
     font-size: small;
-    color: #022d77;
+    color: $main-blue;
 }
 
 .legend-color{

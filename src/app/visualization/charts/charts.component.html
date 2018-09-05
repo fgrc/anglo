@@ -9,7 +9,7 @@
         <tr *ngFor = "let data of valuesTooltip.data">
             <td class="legend-body text-center"> <div class="legend-color" [ngStyle]="{'background-color': data.color}"></div> </td>
             <td class="legend-body">{{ data.legend }}</td>
-            <td class="legend-body">{{ data.value }}</td>
+            <td class="legend-body text-center">{{ data.value }}</td>
         </tr>
     </div>
 </div>

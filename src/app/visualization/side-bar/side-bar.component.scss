@@ -16,10 +16,10 @@
     box-shadow: $box-shadow;
     border: 1px solid $border-color;
     margin-bottom: 1em;
-    padding: 2em 1.5em 1.5em;
+    padding: 1.5em 1em;
     @media (min-width: 576px) {
         height: 100%;
-        max-height: calc(100vh - 87px);
+        max-height: calc(100vh - 78px);
         overflow-y: auto;
         width: 300px;
     }
@@ -66,8 +66,10 @@
         background-color: rgba(80, 36, 143, 0.2);
         border-left: 3px solid #50248F;
         border-radius: .2rem .2rem 0 0;
+        line-height: 2.5;
         margin: -1rem -1rem .75rem;
-        padding: .75em;
+        padding-left: .75em;
+        padding-right: .75em;
         text-align: left;
     }
     .serie-option{
@@ -110,6 +112,7 @@
 }
 .text-muted {
     color: $border-color!important;
+    pointer-events: none;
 }
  .form-check-label{
     color: #353535;
@@ -128,6 +131,10 @@
 }
 .dropdown-menu {
     width: 100%;
+}
+.dropdown-item {
+    cursor: pointer;
+    padding: .25rem .5rem;
 }
 .dropdown-item:focus, .dropdown-item:hover {
     background-color: $body-color;
