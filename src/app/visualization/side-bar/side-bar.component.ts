@@ -30,7 +30,7 @@ import { SidebarService }                    from './side-bar.service';
 export class SideBarComponent implements OnInit, OnDestroy {
   private sidebarStateSub:Subscription;
 
-  public Title = 'Flotación'
+  public Title = 'analysis'
 
   private filtersState$;
   private seriesState$;
@@ -122,7 +122,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
   triggerLocationDropDown = (values , serieIndex: number) => {
     const title = values[values.length - 1].text;
     const locationIndex = this.series[serieIndex].locations.findIndex(d => d.title === title);
-    
     // this.series[serieIndex].locations.forEach((d,i) => (locationIndex === i) ? d.value = true : d.value = false );
 
     const filterIndex         = this.filters.findIndex(d => d.serieId === serieIndex);
