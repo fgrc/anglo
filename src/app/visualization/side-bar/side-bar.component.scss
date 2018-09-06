@@ -68,6 +68,7 @@
         padding-left: .75em;
         padding-right: .75em;
         text-align: left;
+        cursor: pointer;
     }
     .serie-option{
         border: 1px solid;
@@ -132,4 +133,18 @@
 }
 .card-body {
     padding: 1rem;
+
+}
+
+.card-open {
+    max-height: initial !important;
+    opacity: 1 !important;
+    transition: max-height 0.5s ease-in;
+}
+
+.body-content{
+    padding: 0 1em;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s ease-out;
 }

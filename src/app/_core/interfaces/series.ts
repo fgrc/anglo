@@ -12,6 +12,7 @@ export interface ISerie {
 export class Serie implements ISerie{
     title:     '';
     options:   [{title: 'Count', value:false},{title: 'AVG', value:true}, {title: 'Sum', value:false}];
+    show:      boolean;
     measure:   [{title: '', value: false}];
     locations: [{title: '', value: false}];
     visible:   [{title: 'Only', value: false}, {title: 'Hide', value: false}];
@@ -24,6 +25,7 @@ export class Serie implements ISerie{
         this.locations = _location;
         this.scenarios = _scenarios;
         this.visible   = [{title: 'Only', value: false}, {title: 'Hide', value: false}];
+        this.show      = true;
     }
 }
 

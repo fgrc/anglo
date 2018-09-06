@@ -31,12 +31,10 @@
   </div>-->
 
 
-  <div [@fadeIn] class="card mb-2 addedBox animation-ready-min-width" *ngFor="let serie of series; index as serieIndex;">
-
-
-        <div class="card-body">
+  <div [@fadeIn] class="card mb-2 addedBox animation-ready-min-width" *ngFor="let serie of series; index as serieIndex;" id="serie-{{ serieIndex }}">
+        <div class="card-body">            
             <div class="card-options">
-                <span class="serie-title first {{ serie.title }}"  (click) = "triggerTitle()">{{ serie.title }}</span>
+                <span class="serie-title first {{ serie.title }}"  (click) = "triggerTitle(serieIndex)">{{ serie.title }}</span>
                 <span class="serie-option" (click) ="removeSerie(serieIndex)" > &times;</span>
                 <span class="serie-option" *ngFor="let opt of serie.visible; index as i;" [ngClass]="{'text-muted': !opt.value }">
          {{ opt.title }}
@@ -44,7 +42,7 @@
             </div>
             <!--<input [(ngModel)]="serie.where.selected" [typeahead]="serie.where.options" typeaheadOptionField="title" class="form-control">-->
 
-
+      <div class="body-content" [ngClass]="{'card-open': serie.show }">
       <span class="serie-title">Mesaure:</span>
       <!--<span class="serie-option pl-1" *ngFor="let opt of serie.options; index as i;" [ngClass]="{'text-muted': !opt.value }">
       {{ opt.title }}
@@ -97,5 +95,5 @@
         </div>
       </div>
     </div>
-
+    </div>
   </div>

@@ -108,6 +108,8 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.setSeries();
   };
 
+  triggerTitle = (serieIndex: number) => this.series[serieIndex].show = !this.series[serieIndex].show
+
   titleLocationDropDownButton = (serieIndex: number) => {
     const  location = this.series[serieIndex].locations.find(d => d.value === true);
     return location ? location.title : 'Select';

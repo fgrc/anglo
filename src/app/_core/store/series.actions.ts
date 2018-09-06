@@ -27,6 +27,7 @@ export interface seriesState {
     }[];
     series: { 
         title     : string,
+        show      : boolean,
         options   : {title: string, value: boolean} [], 
         visible   : {title: string, value: boolean} [], 
         measure   : {title: string, value: boolean} [], 
