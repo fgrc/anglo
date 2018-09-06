@@ -21,16 +21,6 @@
     Add<b class="icon">+</b>
   </div>
 
-  <!--<div class="toggle-btn">
-    <div class="btn btn-secondary btn-size btn-sm mr-1" (click)>
-      Add
-    </div>
-    <div class="btn btn-primary btn-size btn-sm ml-1">
-      Refresh
-    </div>
-  </div>-->
-
-
   <div [@fadeIn] class="card mb-2 addedBox animation-ready-min-width" *ngFor="let serie of series; index as serieIndex;" id="serie-{{ serieIndex }}">
         <div class="card-body">            
             <div class="card-options">
@@ -40,13 +30,9 @@
          {{ opt.title }}
                 </span>
             </div>
-            <!--<input [(ngModel)]="serie.where.selected" [typeahead]="serie.where.options" typeaheadOptionField="title" class="form-control">-->
 
       <div class="body-content" [ngClass]="{'card-open': serie.show }">
       <span class="serie-title">Mesaure:</span>
-      <!--<span class="serie-option pl-1" *ngFor="let opt of serie.options; index as i;" [ngClass]="{'text-muted': !opt.value }">
-      {{ opt.title }}
-    </span>-->
 
       <div class="btn-group btn-block mb-3" dropdown>
         <button id="measureDropDownButton" dropdownToggle type="button" class="btn btn-default dropdown-toggle btn-block btn-sm"
@@ -62,28 +48,12 @@
       
       
       <span class="serie-title">Location: </span>
-      <ng-select  [multiple] = "true"
-                  [items]    = "itemsLocation(serie.locations)"
-                  
-                  (data)     = "triggerLocationDropDown($event, serieIndex)"
+      <ng-select  [multiple]  = "true"
+                  [items]     = "itemsLocation(serie.locations)"
+                  [active]    = "initLocation(serie.locations)"
+                  (selected)  = "triggerLocationDropDown($event, serieIndex)"
                   (removed)   = "removeTriggerLocation($event, serieIndex)"
-                  placeholder= "No location selected"></ng-select>
-
-      <!--<span class="serie-title"> Location: </span>
-
-      <div class="btn-group btn-block mb-3" dropdown>
-        <button id="locationDropDownButton" dropdownToggle type="button" class="btn btn-default dropdown-toggle btn-block btn-sm"
-          aria-controls="dropdown-basic">
-          {{ titleLocationDropDownButton(serieIndex) }} <span class="caret"></span>
-        </button>
-        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li *ngFor="let location of serie.locations; index as locationIndex;" role="menuitem">
-            <a class="dropdown-item" (click)="triggerLocationDropDown(location.title, locationIndex, serieIndex)">{{ location.title
-              }}
-            </a>
-          </li>
-        </ul>
-      </div>-->
+                  placeholder = "No location selected"></ng-select>
 
       <span class="serie-title">Scenarios: </span>
       <div class="container-scenarios">
