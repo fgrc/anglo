@@ -224,7 +224,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     dataSerie = data.filter(d => d.Name === title && d.Location === locations[0].title);
 
     const scenarios = dataSerie.filter((v, i, a) => a.findIndex(d => d.Scenario === v.Scenario) === i).map(d => {
-      return (d.Scenario === 'Real') ? {
+      return (d.Scenario === 'Dispatch (Rv)') ? {
         title: d.Scenario,
         value: true
       } : {
@@ -246,7 +246,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     // init
     const crossfilter = this.initAllValuesCrossfilters(title, serieIndex);
     // filter Real values
-    this.seriesService.filterScenarios(crossfilter.dimensions.find(d => d.title === 'scenario').dimension, ['Real']);
+    this.seriesService.filterScenarios(crossfilter.dimensions.find(d => d.title === 'scenario').dimension, ['Dispatch (Rv)']);
     // filter first location value
     this.seriesService.filterLocations(crossfilter.dimensions.find(d => d.title === 'location').dimension, [locations[0].title]);
 
@@ -255,7 +255,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     const groupByTime = this.seriesService.initGroupBy(crossfilter.dimensions.find(d => d.title === 'time').dimension);
     crossfilter.groups.push({
       title: 'Time',
-      scenario: 'Real',
+      scenario: 'Dispatch (Rv)',
       location: locations[0].title,
       group: groupByTime
     });
@@ -267,7 +267,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     };
 
     // Charts
-    const legend = 'Real' + ' - ' + locations[0].title;
+    const legend = 'Dispatch (Rv)' + ' - ' + locations[0].title;
     const chartIndex = this.charts.findIndex(d => d.serieId === serieIndex);
     const chart = this.initChart(title, serieIndex, groupByTime, legend);
 
@@ -283,7 +283,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
       serieId: serieIndex,
       measure: title,
       locations: [locations[0].title],
-      scenarios: ['Real']
+      scenarios: ['Dispatch (Rv)']
     });
     this.setFilters();
     this.setCrossfilters();

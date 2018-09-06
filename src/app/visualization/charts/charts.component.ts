@@ -102,6 +102,7 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(data)
     this.pages$.subscribe(pages => this.pages = pages);
     this.firstValue$.subscribe(firstValue => this.firstValue = firstValue);
     this.charts$.subscribe(charts => this.setCharts(charts));
@@ -138,7 +139,7 @@ export class ChartsComponent implements OnInit {
   }
   
   firstData(){
-    const _data = data.filter(d => d.Scenario === 'Real' && d.Name === 'Fine copper' && d.Location === 'LT2/Rougher/Feed');
+    const _data = data.filter(d => d.Scenario === 'Plant (PI)' && d.Name === 'TPH' && d.Location === 'LT2');
     return _data.map(d => { return {date: d.Date, values: [Number(d.Value)] } })
   }
 
@@ -201,6 +202,9 @@ export class ChartsComponent implements OnInit {
           .attr('class', 'axis axis--x')
           .attr('transform', 'translate(0,' + this.heightC + ')')
           .call(d3Axis.axisBottom(this.x));
+
+
+          
   }
 
   drawAxisY () {
@@ -334,7 +338,7 @@ export class ChartsComponent implements OnInit {
               .attr('class', 'time line')
               .attr('id', 'line-'+id)
               .attr('stroke', color)
-              .attr('stroke-width', '1.5px')
+              .attr('stroke-width', '1px')
               .attr('transform', 'translate(0,' + (this.heightC - this.subHeightC * (i + 1 )  ) + ')')
               .attr('d', line)
               .style('filter', function() { return  'url(#drop-shadow)'; })
@@ -348,8 +352,8 @@ export class ChartsComponent implements OnInit {
               .attr('class', 'dot-times')
               .attr('id', 'dot-'+id)
               .style('stroke', 'white')
-              .attr('stroke-width', 1)
-              .attr('r',4)
+              // .attr('stroke-width', 1)
+              .attr('r',3)
               .style('fill', color)
               .attr('cx', (d: any) => this.x(new Date(d.date)))
               .attr('cy', (d: any) => this.y[i](d.values[zz] ))
