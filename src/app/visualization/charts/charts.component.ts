@@ -120,7 +120,29 @@ export class ChartsComponent implements OnInit {
       this.charts = [];
       this.charts.push({ title: 'Tph', legend: ['Tph'], data: firstData });
     }else{
+
+      charts.forEach((chart) => {
+        let data = chart.data;
+        let newData = [];
+        data.forEach((d, i) => {
+          let newValues = [];
+          d.values.forEach((val, j) => {
+            if( isNaN(val) || !isFinite(val) ){
+              if (i === 0){
+                newValues.push(0)
+              }else{
+                newValues.push(newData[i-1].values[j])
+              }              
+            }else{
+              newValues.push(val)
+            }  
+          });
+          newData.push({date: d.date, values: newValues })
+        });
+        chart.data = newData;
+      })
       this.charts = charts;
+      
     }
     
     
@@ -193,6 +215,7 @@ export class ChartsComponent implements OnInit {
 
         this.y[i] = d3Scale.scaleLinear().range([this.subHeightC, 0]);
         this.y[i].domain(d3Array.extent(dataAux, (d) => d ));
+        
       }
   }
 

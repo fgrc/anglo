@@ -176,7 +176,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.setCrossfilters();
     this.setCharts();
 
-    debugger
   }
 
   triggerLocationDropDown = (values, serieIndex: number) => {
@@ -307,13 +306,17 @@ export class SideBarComponent implements OnInit, OnDestroy {
       });
       const legend = scenario + ' - ' + location;
       const chartIndex = this.charts.findIndex(d => d.serieId === serieIndex);
-      debugger
+
       if (chartIndex !== -1) {
         let values = [];
-        if (this.series[serieIndex].title === 'Tph') {
+        if (this.series[serieIndex].title === 'TPH') {
           values = this.seriesService.getAcmCrossfilter(groupByTime);
-        } else {
+        } else if(this.series[serieIndex].title === 'Recovery'){
           values = this.seriesService.getAvrsCrossfilter(groupByTime);
+          values = values.map(d => (d > 1) ? 1 : d);
+        }else{
+          values = this.seriesService.getAvrsCrossfilter(groupByTime);
+          values = values.map(d => (d > 1) ? 1 : d);
         }
         this.charts[chartIndex].legend.push(legend);
         this.charts[chartIndex].data.forEach((d, i) => d.values.push(values[i]));
@@ -385,7 +388,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
   initAllValuesCrossfilters = (title: string, serieIndex: number) => {
     // Create Crossfilter
-    let crossfilter = this.seriesService.initCrossfilter(title, serieIndex);
+    let crossfilter = this.seriesService.initCrossfilter(title, serieIndex, this.timeScaleDropDownButtonTittle);
     // Create Dimension
     const timeDimension = this.seriesService.initTimeDimension(crossfilter.data, this.timeScaleDropDownButtonTittle);
     const scenarioDimension = this.seriesService.initSceneraioDimension(crossfilter.data);
@@ -410,10 +413,14 @@ export class SideBarComponent implements OnInit, OnDestroy {
   initChart = (title: string, serieId: number, groupBy: any, legend: string) => {
     const keys = this.seriesService.getKeysCrossfilter(groupBy);
     let values = [];
-    if (this.series[serieId].title === 'Tph') {
+    if (this.series[serieId].title === 'TPH') {
       values = this.seriesService.getAcmCrossfilter(groupBy);
-    } else {
+    } else if(this.series[serieId].title === 'Recovery'){
       values = this.seriesService.getAvrsCrossfilter(groupBy);
+      values = values.map(d => (d > 1) ? 1 : d);
+    }else{
+      values = this.seriesService.getAvrsCrossfilter(groupBy);
+      values = values.map(d => (d > 1) ? 1 : d);
     }
     const legendChart = [legend];
     const data = keys.map((d, i) => {

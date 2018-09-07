@@ -33,8 +33,13 @@ export class SeriesService {
 
   // Crossfilter
 
-  initCrossfilter = (measure: string, serieIndex: number) => {
+  initCrossfilter = (measure: string, serieIndex: number, date: string) => {
+    
     let _data = data;
+    if (date === 'Hours'){
+      _data = _data.filter(d =>  new Date(d.Date) > new Date('2018-06-01T00:00:00.0000000') && new Date(d.Date) < new Date('2018-06-28T00:00:00.0000000')  )
+    }
+
     let dataMeasure = _data.filter(d => d.Name === measure);
     let dataCrossfilter = crossfilter(dataMeasure);
     let dx: ICrossfilter = new Crossfilter(measure, serieIndex, dataCrossfilter);
@@ -79,16 +84,16 @@ export class SeriesService {
   // reduce Function
   addReduce    = (p: any, v:any) => {
     ++p.count;
-    p.date  = new Date(v.Date.split('/')[1], v.Date.split('/')[0], v.Date.split('/')[2]);
-    p.acm  += Number(v.Value);
+    p.date  = new Date(v.Date);
+    p.acm  += v.Value;
     p.avr   = p.acm/p.count;
     return p;
   }
 
   removeReduce = (p: any, v:any) => {
     --p.count;
-    p.date  = new Date(v.Date.split('/')[2], v.Date.split('/')[1], v.Date.split('/')[0]);
-    p.acm  -= Number(v.Value);
+    p.date  = new Date(v.Date);
+    p.acm  -= v.Value;
     p.avr   = p.acm/p.count;
     return p;
   }
